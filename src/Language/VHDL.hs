@@ -5,5 +5,3 @@ module Language.VHDL
 
 import Language.VHDL.Syntax
 import Language.VHDL.Pretty
-
---------------------------------------------------------------------------------
