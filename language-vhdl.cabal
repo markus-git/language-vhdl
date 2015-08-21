@@ -2,7 +2,7 @@
 -- documentation, see http://haskell.org/cabal/users-guide/
 
 name:                language-vhdl
-version:             0.1.0.1
+version:             0.1.0.2
 synopsis:            VHDL AST and pretty printer in Haskell
 -- description:         
 license:             BSD3
@@ -12,7 +12,6 @@ maintainer:          mararon@chalmers.se
 -- copyright:
 homepage:            https://github.com/markus-git/language-vhdl
 description:         VHDL AST and pretty printer according to the VHDL language reference manual (2000 Edition).
-                     Working on code generator.
 category:            Language
 build-type:          Simple
 extra-source-files:  README.md
