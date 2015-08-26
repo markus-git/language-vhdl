@@ -66,7 +66,12 @@ instance Pretty Allocator where
 
 instance Pretty ArchitectureBody where
   pp (ArchitectureBody i n d s) =
-      vcat [header, indent (pp d), text "BEGIN", indent (pp s), footer]
+      vcat [ header
+           , indent (pp  d)
+           , text "BEGIN"
+           , indent (vpp s)
+           , footer
+           ]
     where
       header = text "ARCHITECTURE" <+> pp i
            <+> text "OF" <+> pp n
@@ -396,7 +401,8 @@ instance Pretty EntityDeclaration where
            [ pp h
            , pp d
            ]
-         , cond (flip hangs (text "BEGIN")) s
+         , flip cond s $ \ss ->
+             text "BEGIN" `hangs` ss             
          , text "END ENTITY" <+> pp i <+> semi
          ]
 
@@ -452,9 +458,7 @@ instance Pretty EnumerationTypeDefinition where
 
 instance Pretty ExitStatement where
   pp (ExitStatement l b c) =
-        condR colon l
-    <+> text "NEXT" <+> cond id b
-    <+> cond ((<+>) (text "WHEN")) c <+> semi
+    condR colon l <+> text "NEXT" <+> cond id b <+> condL (text "WHEN") c <+> semi
 
 instance Pretty Exponent where pp = error "missing: Exponent" -- todo
 
@@ -1075,6 +1079,9 @@ instance Pretty WaveformElement where
 -- * Some helpers
 --------------------------------------------------------------------------------
 
+--------------------------------------------------------------------------------
+-- text sep.
+  
 commaSep  :: [Doc] -> Doc
 commaSep  = hsep . punctuate comma
 
@@ -1088,21 +1095,7 @@ textSep   :: String -> [Doc] -> Doc
 textSep s = hsep . punctuate (space <> text s)
 
 --------------------------------------------------------------------------------
-
-when :: Bool -> Doc -> Doc
-when b a = if b then a else empty
-
-cond :: Pretty a => (Doc -> Doc) -> Maybe a -> Doc
-cond f = maybe empty (f . pp)
-
-condR :: Pretty a => Doc -> Maybe a -> Doc
-condR s m = cond (flip (<+>) s) m
-
-condL :: Pretty a => Doc -> Maybe a -> Doc
-condL s m = cond ((<+>) s) m
-
-label :: Pretty a => Maybe a -> Doc
-label = cond (flip (<+>) colon)
+-- indentation
 
 indent :: Doc -> Doc
 indent = nest 4
@@ -1111,6 +1104,19 @@ hangs  :: Doc -> Doc -> Doc
 hangs  = flip hang 4
 
 --------------------------------------------------------------------------------
+-- conditional print
+
+cond :: Pretty a => (Doc -> Doc) -> Maybe a -> Doc
+cond f = maybe empty (f . pp)
+
+condR :: Pretty a => Doc -> Maybe a -> Doc
+condR s = cond (<+> s)
+
+condL :: Pretty a => Doc -> Maybe a -> Doc
+condL s = cond (s <+>)
+
+label :: Pretty a => Maybe a -> Doc
+label = cond (<+> colon)
 
 pp' :: Pretty a => Maybe a -> Doc
 pp' = cond id
@@ -1118,9 +1124,16 @@ pp' = cond id
 parens' :: Pretty a => Maybe a -> Doc
 parens' = cond parens
 
---------------------------------------------------------------------------------
+when :: Bool -> Doc -> Doc
+when b a = if b then a else empty
 
-postponed :: Pretty a =>  Maybe Label -> Bool -> a -> Doc
+--------------------------------------------------------------------------------
+-- some common things
+
+vpp :: Pretty a => [a] -> Doc
+vpp = foldr ($+$) empty . map pp
+
+postponed :: Pretty a => Maybe Label -> Bool -> a -> Doc
 postponed l b a = condR colon l <+> when b (text "POSTPONED") <+> pp a
 
 --------------------------------------------------------------------------------
