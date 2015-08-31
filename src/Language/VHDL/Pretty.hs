@@ -67,7 +67,7 @@ instance Pretty Allocator where
 instance Pretty ArchitectureBody where
   pp (ArchitectureBody i n d s) =
       vcat [ header
-           , indent (pp  d)
+           , indent (vpp d)
            , text "BEGIN"
            , indent (vpp s)
            , footer
@@ -304,7 +304,7 @@ instance Pretty ConfigurationSpecification where
 
 instance Pretty ConstantDeclaration where
   pp (ConstantDeclaration is s e) =
-    text "CONSTANT" <+> pp is <+> colon <+> pp s <+> condL (text ":=") e
+    text "CONSTANT" <+> commaSep (fmap pp is) <+> colon <+> pp s <+> condL (text ":=") e
 
 instance Pretty ConstrainedArrayDefinition where
   pp (ConstrainedArrayDefinition i s) = text "ARRAY" <+> pp i <+> text "OF" <+> pp s
@@ -480,7 +480,9 @@ instance Pretty Factor where
   pp (FacNot p)     = text "NOT" <+> pp p
 
 instance Pretty FileDeclaration where
-  pp (FileDeclaration is s o) = text "FILE" <+> pp is <+> colon <+> pp s <+> cond id o <+> semi
+  pp (FileDeclaration is s o) =
+        text "FILE" <+> commaSep (fmap pp is)
+    <+> colon <+> pp s <+> cond id o <+> semi
 
 --instance Pretty FileLogicalName where pp = undefined
 
@@ -931,8 +933,10 @@ instance Pretty SignalAssignmentStatement where
 
 instance Pretty SignalDeclaration where
   pp (SignalDeclaration is s k e) =
-        text "SIGNAL" <+> pp is <+> colon <+> pp s
-    <+> cond id k <+> condL (text ":=") e <+> semi
+        text "SIGNAL"
+    <+> commaSep (fmap pp is)
+    <+> colon <+> pp s <+> cond id k
+    <+> condL (text ":=") e <+> semi
 
 instance Pretty SignalKind where
   pp Register = text "REGISTER"
@@ -960,7 +964,7 @@ instance Pretty SliceName where
   pp (SliceName p r) = pp p <+> parens (pp r)
 
 instance Pretty StringLiteral where
-  pp (SLit s) = text s
+  pp (SLit s) = char '\"' <> text s <> char '\"'
 
 instance Pretty SubprogramBody where
   pp (SubprogramBody s d st k de) =
@@ -1062,7 +1066,9 @@ instance Pretty VariableAssignmentStatement where
 
 instance Pretty VariableDeclaration where
   pp (VariableDeclaration s is sub e) =
-    when s (text "SHARED") <+> text "VARIABLE" <+> pp is <+> colon <+> pp sub <+> condL (text ":=") e <+> semi
+    when s (text "SHARED") <+> text "VARIABLE"
+    <+> commaSep (fmap pp is)
+    <+> colon <+> pp sub <+> condL (text ":=") e <+> semi
 
 instance Pretty WaitStatement where
   pp (WaitStatement l sc cc tc) =
