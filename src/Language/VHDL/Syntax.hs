@@ -27,6 +27,7 @@ data EntityDeclaration = EntityDeclaration {
   , entity_declarative_part   :: EntityDeclarativePart
   , entity_statement_part     :: Maybe EntityStatementPart
   }
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- ** 1.1.1 Entity haeder
@@ -43,9 +44,13 @@ data EntityHeader = EntityHeader {
     formal_generic_clause     :: Maybe GenericClause
   , formal_port_clause        :: Maybe PortClause
   }
+  deriving (Eq, Show)
 
 data GenericClause = GenericClause GenericList
+  deriving (Eq, Show)
+
 data PortClause    = PortClause    PortList
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- *** 1.1.1.1 Generics
@@ -105,6 +110,7 @@ data EntityDeclarativeItem =
   | EDIUseClause    UseClause
   | EDIGroupTemp    GroupTemplateDeclaration
   | EDIGroupDecl    GroupDeclaration
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- ** 1.1.3 Entity statement part
@@ -124,6 +130,7 @@ data EntityStatement =
     ESConcAssert   ConcurrentAssertionStatement
   | ESPassiveConc  ConcurrentProcedureCallStatement
   | ESPassiveProc  ProcessStatement
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- * 1.2 Arcitecture bodies
@@ -143,6 +150,7 @@ data ArchitectureBody = ArchitectureBody {
   , archi_declarative_part :: ArchitectureDeclarativePart
   , archi_statement_part   :: ArchitectureStatementPart
   }
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- ** 1.2.1 Architecture declarative part
@@ -190,6 +198,7 @@ data BlockDeclarativeItem =
   | BDIUseClause    UseClause
   | BDIGroupTemp    GroupTemplateDeclaration
   | BDIGroupDecl    GroupDeclaration
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- ** 1.2.2 Architecture statement part
@@ -225,6 +234,7 @@ data ConfigurationDeclaration = ConfigurationDeclaration {
   , config_declarative_part    :: ConfigurationDeclarativePart
   , config_block_configuration :: BlockConfiguration
   }
+  deriving (Eq, Show)
 
 type ConfigurationDeclarativePart = [ConfigurationDeclarativeItem]
 
@@ -232,6 +242,7 @@ data ConfigurationDeclarativeItem =
     CDIUse   UseClause
   | CDIAttr  AttributeSpecification
   | CDIGroup GroupDeclaration
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- ** 1.3.1 Block configuration
@@ -261,19 +272,23 @@ data BlockConfiguration = BlockConfiguration {
   , block_use_clause         :: [UseClause]
   , block_configuration_item :: [ConfigurationItem]
   }
+  deriving (Eq, Show)
 
 data BlockSpecification =
     BSArch  Name
   | BSBlock Label
   | BSGen   Label
+  deriving (Eq, Show)
 
 data IndexSpecification =
     ISRange DiscreteRange
   | ISExp   Expression
+  deriving (Eq, Show)
 
 data ConfigurationItem  =
     CIBlock BlockConfiguration
   | CIComp  ComponentConfiguration
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- ** 1.3.2 Component configuration
@@ -291,6 +306,7 @@ data ComponentConfiguration = ComponentConfiguration {
   , comp_binding_indication  :: Maybe BindingIndication
   , comp_block_configuration :: Maybe BlockConfiguration
   }
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 --
@@ -330,10 +346,12 @@ data SubprogramSpecification =
     , subfun_formal_parameter_list  :: Maybe FormalParameterList
     , subfun_type_mark              :: TypeMark
     }
+  deriving (Eq, Show)
 
 data Designator =
     DId Identifier
   | DOp OperatorSymbol
+  deriving (Eq, Show)
 
 type OperatorSymbol = StringLiteral
 
@@ -403,6 +421,7 @@ data SubprogramBody = SubprogramBody {
   , subprog_kind             :: Maybe SubprogramKind
   , subprog_designator       :: Maybe Designator
   }
+  deriving (Eq, Show)
 
 type SubprogramDeclarativePart = [SubprogramDeclarativeItem]
 
@@ -420,10 +439,12 @@ data SubprogramDeclarativeItem =
   | SDIUseClause    UseClause
   | SDIGroupTemp    GroupTemplateDeclaration
   | SDIGroupDecl    GroupDeclaration
+  deriving (Eq, Show)
     
 type SubprogramStatementPart   = [SequentialStatement]
 
 data SubprogramKind            = Procedure | Function
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- * 2.3 Subprogram overloading
@@ -442,6 +463,7 @@ data SubprogramKind            = Procedure | Function
 -}
 
 data Signature = Signature (Maybe (Maybe [TypeMark], Maybe TypeMark))
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- * 2.4 Resolution functions
@@ -481,6 +503,7 @@ data PackageDeclaration = PackageDeclaration {
     packd_identifier       :: Identifier
   , packd_declarative_part :: PackageDeclarativePart
   }
+  deriving (Eq, Show)
 
 type PackageDeclarativePart = [PackageDeclarativeItem]
 
@@ -501,6 +524,7 @@ data PackageDeclarativeItem =
   | PDIUseClause    UseClause
   | PDIGroupTemp    GroupTemplateDeclaration
   | PDIGroupDecl    GroupDeclaration
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- * 2.6 Package bodies
@@ -531,6 +555,7 @@ data PackageBody = PackageBody {
     packb_simple_name           :: SimpleName
   , packb_body_declarative_part :: PackageBodyDeclarativePart
   }
+  deriving (Eq, Show)
 
 type PackageBodyDeclarativePart = [PackageBodyDeclarativeItem]
 
@@ -546,6 +571,7 @@ data PackageBodyDeclarativeItem =
   | PBDIUseClause    UseClause
   | PBDIGroupTemp    GroupTemplateDeclaration
   | PBDIGroupDecl    GroupDeclaration
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- * 2.7 Conformance rules
@@ -584,8 +610,10 @@ data ScalarTypeDefinition =
   | ScalarInt   IntegerTypeDefinition
   | ScalarFloat FloatingTypeDefinition
   | ScalarPhys  PhysicalTypeDefinition
+  deriving (Eq, Show)
 
 data RangeConstraint = RangeConstraint Range
+  deriving (Eq, Show)
 
 data Range =
     RAttr   AttributeName
@@ -594,8 +622,10 @@ data Range =
     , range_dir   :: Direction
     , range_upper :: SimpleExpression
     }
+  deriving (Eq, Show)
 
 data Direction = To | DownTo
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- ** 3.1.1 Enumeration types
@@ -607,10 +637,12 @@ data Direction = To | DownTo
 -}
 
 data EnumerationTypeDefinition = EnumerationTypeDefinition [EnumerationLiteral]
+  deriving (Eq, Show)
 
 data EnumerationLiteral =
     EId   Identifier
   | EChar CharacterLiteral
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- *** 3.1.1.1 Predefined enumeration types
@@ -653,15 +685,18 @@ data PhysicalTypeDefinition = PhysicalTypeDefinition {
   , physd_secondary_unit_declaration :: [SecondaryUnitDeclaration]
   , physd_simple_name                :: Maybe SimpleName
   }
+  deriving (Eq, Show)
 
 type PrimaryUnitDeclaration   = Identifier
 
 data SecondaryUnitDeclaration = SecondaryUnitDeclaration Identifier PhysicalLiteral
+  deriving (Eq, Show)
 
 data PhysicalLiteral = PhysicalLiteral {
     physl_abstract_literal :: Maybe Literal
   , physl_unit_name        :: Name
   }
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- *** 3.1.3.1 Predefined physical types
@@ -692,6 +727,7 @@ type FloatingTypeDefinition = RangeConstraint
 data CompositeTypeDefinition =
     CTDArray  ArrayTypeDefinition
   | CTDRecord RecordTypeDefinition
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- ** 3.2.1 Array types
@@ -717,24 +753,30 @@ data CompositeTypeDefinition =
 data ArrayTypeDefinition =
     ArrU UnconstrainedArrayDefinition
   | ArrC ConstrainedArrayDefinition
+  deriving (Eq, Show)
 
 data UnconstrainedArrayDefinition = UnconstrainedArrayDefinition {
     arru_index_subtype_definition   :: [IndexSubtypeDefinition]
   , arru_element_subtype_indication :: (SubtypeIndication)
   }
+  deriving (Eq, Show)
 
 data ConstrainedArrayDefinition = ConstrainedArrayDefinition {
     arrc_index_constraint   :: IndexConstraint
   , arrc_subtype_indication :: SubtypeIndication
   }
+  deriving (Eq, Show)
 
 data IndexSubtypeDefinition = IndexSubtypeDefinition TypeMark
+  deriving (Eq, Show)
 
 data IndexConstraint = IndexConstraint [DiscreteRange]
+  deriving (Eq, Show)
 
 data DiscreteRange =
     DRSub   SubtypeIndication
   | DRRange Range
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- *** 3.2.1.1 Index constraints and discrete ranges
@@ -767,11 +809,13 @@ data RecordTypeDefinition = RecordTypeDefinition {
     rectd_element_declaration :: [ElementDeclaration]
   , rectd_type_simple_name    :: Maybe SimpleName
   }
+  deriving (Eq, Show)
 
 data ElementDeclaration = ElementDeclaration {
     elemd_identifier_list    :: IdentifierList
   , elemd_subtype_definition :: ElementSubtypeDefinition
   }
+  deriving (Eq, Show)
 
 type IdentifierList           = [Identifier]
 
@@ -784,6 +828,7 @@ type ElementSubtypeDefinition = SubtypeIndication
 -}
 
 data AccessTypeDefinition = AccessTypeDefinition SubtypeIndication
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- ** 3.3.1 Incomplete type declarations
@@ -792,6 +837,7 @@ data AccessTypeDefinition = AccessTypeDefinition SubtypeIndication
 -}
 
 data IncompleteTypeDeclaration = IncompleteTypeDeclaration Identifier
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- *** 3.3.2 Allocation and deallocation of objects
@@ -805,6 +851,7 @@ data IncompleteTypeDeclaration = IncompleteTypeDeclaration Identifier
 -}
 
 data FileTypeDefinition = FileTypeDefinition TypeMark
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- ** 3.4.1 File operations
@@ -853,6 +900,7 @@ data Declaration =
   | DConfiguration ConfigurationDeclaration
   | DSubprogram    SubprogramDeclaration
   | DPackage       PackageDeclaration
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- * 4.1 Type declarations
@@ -873,11 +921,13 @@ data Declaration =
 -}
 
 data TypeDeclaration = TDFull FullTypeDeclaration | TDPartial IncompleteTypeDeclaration
+  deriving (Eq, Show)
 
 data FullTypeDeclaration = FullTypeDeclaration {
     ftd_identifier      :: Identifier
   , ftd_type_definition :: TypeDefinition
   }
+  deriving (Eq, Show)
 
 data TypeDefinition =
     TDScalar       ScalarTypeDefinition
@@ -885,6 +935,7 @@ data TypeDefinition =
   | TDAccess       AccessTypeDefinition
   | TDFile           FileTypeDefinition
 --  | TDProt      ProtectedTypeDefinition
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- * 4.2 Subtype declarations
@@ -908,16 +959,20 @@ data SubtypeDeclaration = SubtypeDeclaration {
     sd_identifier               :: Identifier
   , sd_indication               :: SubtypeIndication
   }
+  deriving (Eq, Show)
 
 data SubtypeIndication = SubtypeIndication {
     si_resolution_function_name :: Maybe Name
   , si_type_mark                :: TypeMark
   , si_constraint               :: Maybe Constraint
   }
+  deriving (Eq, Show)
 
 data TypeMark   = TMType Name | TMSubtype Name
+  deriving (Eq, Show)
 
 data Constraint = CRange RangeConstraint | CIndex IndexConstraint
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- * 4.3 Objects
@@ -937,6 +992,7 @@ data ObjectDeclaration =
   | ObjSig     SignalDeclaration
   | ObjVar   VariableDeclaration
   | ObjFile      FileDeclaration
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- *** 4.3.1.1 Constant declarations
@@ -950,6 +1006,7 @@ data ConstantDeclaration = ConstantDeclaration {
   , const_subtype_indication :: SubtypeIndication
   , const_expression         :: Maybe Expression
   }
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- *** 4.3.1.2 Signal declarations
@@ -966,8 +1023,10 @@ data SignalDeclaration = SignalDeclaration {
   , signal_kind               :: Maybe SignalKind
   , signal_expression         :: Maybe Expression
   }
+  deriving (Eq, Show)
 
 data SignalKind = Register | Bus
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- *** 4.3.1.3 Variable declarations
@@ -982,6 +1041,7 @@ data VariableDeclaration = VariableDeclaration {
   , var_subtype_indication :: SubtypeIndication
   , var_expression         :: Maybe Expression
   }
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- *** 4.3.1.4 File declarations
@@ -1000,11 +1060,13 @@ data FileDeclaration = FileDeclaration {
   , fd_subtype_indication   :: SubtypeIndication
   , fd_open_information     :: Maybe FileOpenInformation
   }
+  deriving (Eq, Show)
 
 data FileOpenInformation = FileOpenInformation {
     foi_open_kind_expression :: Maybe Expression
   , foi_logical_name         :: FileLogicalName
   }
+  deriving (Eq, Show)
 
 type FileLogicalName = Expression
 
@@ -1055,8 +1117,10 @@ data InterfaceDeclaration
         idecl_identifier_list     :: IdentifierList
       , ifile_subtype_indication  :: SubtypeIndication
     }
+  deriving (Eq, Show)
 
 data Mode = In | Out | InOut | Buffer | Linkage
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- *** 4.3.2.1 Interface lists
@@ -1067,6 +1131,7 @@ data Mode = In | Out | InOut | Buffer | Linkage
 -}
 
 data InterfaceList    = InterfaceList [InterfaceElement]
+  deriving (Eq, Show)
 
 type InterfaceElement = InterfaceDeclaration
 
@@ -1106,18 +1171,22 @@ data AssociationElement = AssociationElement {
     assoc_formal_part :: Maybe FormalPart
   , assoc_actual_part :: ActualPart
   }
+  deriving (Eq, Show)
 
 data AssociationList = AssociationList [AssociationElement]
+  deriving (Eq, Show)
 
 data FormalDesignator =
     FDGeneric   Name
   | FDPort      Name
   | FDParameter Name
+  deriving (Eq, Show)
 
 data FormalPart =
     FPDesignator          FormalDesignator
   | FPFunction   Name     FormalDesignator
   | FPType       TypeMark FormalDesignator
+  deriving (Eq, Show)
 
 data ActualDesignator =
     ADExpression  Expression
@@ -1125,11 +1194,13 @@ data ActualDesignator =
   | ADVariable    Name
   | ADFile        Name
   | ADOpen
+  deriving (Eq, Show)
 
 data ActualPart =
     APDesignator          ActualDesignator
   | APFunction   Name     ActualDesignator
   | APType       TypeMark ActualDesignator
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- ** 4.3.3 Alias declarations
@@ -1146,11 +1217,13 @@ data AliasDeclaration = AliasDeclaration {
   , alias_name               :: Name
   , alias_signature          :: Maybe Signature
   }
+  deriving (Eq, Show)
 
 data AliasDesignator =
     ADIdentifier Identifier
   | ADCharacter  CharacterLiteral
   | ADOperator   OperatorSymbol
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- *** 4.3.3.1 Object aliases
@@ -1169,6 +1242,7 @@ data AttributeDeclaration = AttributeDeclaration {
     attr_identifier :: Identifier
   , attr_type_marke :: TypeMark
   }
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- * 4.5 Component declarations
@@ -1186,6 +1260,7 @@ data ComponentDeclaration = ComponentDeclaration {
   , comp_local_port_clause    :: Maybe PortClause
   , comp_simple_name          :: Maybe SimpleName
   }
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- * 4.6 Group template declarations
@@ -1203,6 +1278,7 @@ data GroupTemplateDeclaration = GroupTemplateDeclaration {
     gtd_identifier              :: Identifier
   , gtd_entity_class_entry_list :: EntityClassEntryList
   }
+  deriving (Eq, Show)
 
 type EntityClassEntryList = [EntityClassEntry]
 
@@ -1210,6 +1286,7 @@ data EntityClassEntry = EntityClassEntry {
     entc_entity_class :: EntityClass
   , entc_multiple     :: Bool
   }
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- * 4.7 Group declarations
@@ -1227,12 +1304,14 @@ data GroupDeclaration = GroupDeclaration {
   , group_template_name    :: Name
   , group_constituent_list :: GroupConstituentList
   }
+  deriving (Eq, Show)
 
 type GroupConstituentList = [GroupConstituent]
 
 data GroupConstituent =
     GCName Name
   | GCChar CharacterLiteral
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 --
@@ -1274,11 +1353,13 @@ data AttributeSpecification = AttributeSpecification {
   , as_entity_specification :: EntitySpecification
   , as_expression           :: Expression
   }
+  deriving (Eq, Show)
 
 data EntitySpecification = EntitySpecification {
     es_entity_name_list     :: EntityNameList
   , es_entity_class         :: EntityClass
   }
+  deriving (Eq, Show)
 
 data EntityClass =
     ENTITY     | ARCHITECTURE  | CONFIGURATION
@@ -1287,21 +1368,25 @@ data EntityClass =
   | SIGNAL     | VARIABLE      | COMPONENT
   | LABEL      | LITERAL       | UNITS
   | GROUP      | FILE
+  deriving (Eq, Show)
 
 data EntityNameList =
     ENLDesignators [EntityDesignator]
   | ENLOthers
   | ENLAll
+  deriving (Eq, Show)
 
 data EntityDesignator = EntityDesignator {
     ed_entity_tag :: EntityTag
   , ed_signature  :: Maybe Signature
   }
+  deriving (Eq, Show)
 
 data EntityTag =
     ETName SimpleName
   | ETChar CharacterLiteral
   | ETOp   OperatorSymbol
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- * 5.2 Configuration specification
@@ -1323,16 +1408,19 @@ data ConfigurationSpecification = ConfigurationSpecification {
     cs_component_specification :: ComponentSpecification
   , cs_binding_indication      :: BindingIndication
   }
+  deriving (Eq, Show)
 
 data ComponentSpecification = ComponentSpecification {
     cs_instantiation_list      :: InstantiationList
   , cs_component_name          :: Name
   }
+  deriving (Eq, Show)
 
 data InstantiationList =
     ILLabels [Label]
   | ILOthers
   | ILAll
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- ** 5.2.1 Binding indication
@@ -1348,6 +1436,7 @@ data BindingIndication = BindingIndication {
   , bi_generic_map_aspect :: Maybe GenericMapAspect
   , bi_port_map_aspect    :: Maybe PortMapAspect
   }
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- *** 5.2.1.1 Entity aspect
@@ -1362,6 +1451,7 @@ data EntityAspect =
     EAEntity Name (Maybe Identifier)
   | EAConfig Name
   | EAOpen
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- *** 5.2.1.2 Generic map and port map aspects
@@ -1374,8 +1464,10 @@ data EntityAspect =
 -}
 
 data GenericMapAspect = GenericMapAspect AssociationList
+  deriving (Eq, Show)
 
 data PortMapAspect    = PortMapAspect    AssociationList
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- ** 5.2.2 Default binding indication
@@ -1401,16 +1493,19 @@ data DisconnectionSpecification = DisconnectionSpecification {
     ds_guarded_signal_specification :: GuardedSignalSpecification
   , ds_time_expression              :: Expression
   }
+  deriving (Eq, Show)
 
 data GuardedSignalSpecification = GuardedSignalSpecification {
     gs_guarded_signal_list          :: SignalList
   , gs_type_mark                    :: TypeMark
   }
+  deriving (Eq, Show)
 
 data SignalList =
     SLName   [Name]
   | SLOthers
   | SLAll
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 --
@@ -1443,10 +1538,12 @@ data Name =
   | NIndex  IndexedName
   | NSlice  SliceName
   | NAttr   AttributeName
+  deriving (Eq, Show)
 
 data Prefix =
     PName Name
   | PFun  FunctionCall
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- * 6.2 Simple names
@@ -1472,12 +1569,14 @@ data SelectedName = SelectedName {
     sname_prefix :: Prefix
   , sname_suffix :: Suffix
   }
+  deriving (Eq, Show)
 
 data Suffix =
     SSimple SimpleName
   | SChar   CharacterLiteral
   | SOp     OperatorSymbol
   | SAll
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- * 6.4 Indexed names
@@ -1489,6 +1588,7 @@ data IndexedName = IndexedName {
     iname_prefix     :: Prefix
   , iname_expression :: [Expression]
   }
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- * 6.5 Slice names
@@ -1500,6 +1600,7 @@ data SliceName = SliceName {
     slice_prefix         :: Prefix
   , slice_discrete_range :: DiscreteRange
   }
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- * 6.6 Attribute names
@@ -1516,6 +1617,7 @@ data AttributeName = AttributeName {
   , aname_attribute_designator :: AttributeDesignator
   , aname_expression           :: Maybe Expression
   }
+  deriving (Eq, Show)
 
 type AttributeDesignator = SimpleName
 
@@ -1573,32 +1675,38 @@ data Expression =
   | ENand (Relation) (Maybe Relation)
   | ENor  (Relation) (Maybe Relation)
   | EXnor [Relation]
+  deriving (Eq, Show)
 
 data Relation         = Relation {
     relation_shift_expression :: ShiftExpression
   , relation_operator         :: Maybe (RelationalOperator, ShiftExpression)
   }
+  deriving (Eq, Show)
 
 data ShiftExpression  = ShiftExpression {
     shifte_simple_expression  :: SimpleExpression
   , shifte_shift_operator     :: Maybe (ShiftOperator, SimpleExpression)
   }
+  deriving (Eq, Show)
 
 data SimpleExpression = SimpleExpression {
     sexp_sign                 :: Maybe Sign
   , sexp_term                 :: Term
   , sexp_adding               :: [(AddingOperator, Term)]
   }
+  deriving (Eq, Show)
 
 data Term = Term {
     term_factor               :: Factor
   , term_multiplying          :: [(MultiplyingOperator, Factor)]
   }
+  deriving (Eq, Show)
 
 data Factor =
     FacPrim Primary (Maybe Primary)
   | FacAbs  Primary
   | FacNot  Primary
+  deriving (Eq, Show)
 
 data Primary =
     PrimName  Name
@@ -1609,6 +1717,7 @@ data Primary =
   | PrimTCon  TypeConversion
   | PrimAlloc Allocator
   | PrimExp   Expression
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- * 7.2 Operators
@@ -1629,18 +1738,25 @@ data Primary =
 -}
 
 data LogicalOperator  = And | Or | Nand | Nor | Xor | Xnor
+  deriving (Eq, Show)
 
 data RelationalOperator = Eq | Neq | Lt | Lte | Gt | Gte
+  deriving (Eq, Show)
 
 data ShiftOperator    = Sll | Srl | Sla | Sra | Rol | Ror
+  deriving (Eq, Show)
 
 data AddingOperator   = Plus | Minus | Concat
+  deriving (Eq, Show)
 
 data Sign             = Identity | Negation
+  deriving (Eq, Show)
 
 data MultiplyingOperator = Times | Div | Mod | Rem
+  deriving (Eq, Show)
 
 data MiscellaneousOperator = Exp | Abs | Not
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- ** 7.2.1 Logical operators
@@ -1701,10 +1817,12 @@ data Literal =
   | LitString    StringLiteral
   | LitBitString BitStringLiteral
   | LitNull 
+  deriving (Eq, Show)
 
 data NumericLiteral =
     NLitAbstract AbstractLiteral
   | NLitPhysical PhysicalLiteral
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- ** 7.3.2 Aggregates
@@ -1728,19 +1846,23 @@ data NumericLiteral =
 data Aggregate = Aggregate {
     agg_element_association :: [ElementAssociation]
   }
+  deriving (Eq, Show)
 
 data ElementAssociation = ElementAssociation {
     eassoc_choices'   :: Maybe Choices
   , eassoc_expression :: Expression
   }
+  deriving (Eq, Show)
 
 data Choices = Choices [Choice]
+  deriving (Eq, Show)
 
 data Choice =
     ChoiceSimple SimpleExpression
   | ChoiceRange  DiscreteRange
   | ChoiceName   SimpleName
   | ChoiceOthers
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- *** 7.3.2.1 Record aggregates
@@ -1765,6 +1887,7 @@ data FunctionCall = FunctionCall {
     fc_function_name         :: Name
   , fc_actual_parameter_part :: Maybe ActualParameterPart
   }
+  deriving (Eq, Show)
 
 type ActualParameterPart = AssociationList
 
@@ -1779,6 +1902,7 @@ type ActualParameterPart = AssociationList
 data QualifiedExpression =
     QualExp TypeMark Expression
   | QualAgg TypeMark Aggregate
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- ** 7.3.5 Type conversions
@@ -1790,6 +1914,7 @@ data TypeConversion = TypeConversion {
     type_mark  :: TypeMark
   , expression :: Expression
   }
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- ** 7.3.6 Allocators
@@ -1802,6 +1927,7 @@ data TypeConversion = TypeConversion {
 data Allocator =
     AllocSub  SubtypeIndication
   | AllocQual QualifiedExpression
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- * 7.4 Static expressions
@@ -1864,6 +1990,7 @@ data SequentialStatement =
   | SExit      ExitStatement
   | SReturn    ReturnStatement
   | SNull      NullStatement
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- * 8.1 Wait statement
@@ -1884,16 +2011,21 @@ data SequentialStatement =
 
 data WaitStatement = WaitStatement
     (Maybe Label) (Maybe SensitivityClause) (Maybe ConditionClause) (Maybe TimeoutClause)
+  deriving (Eq, Show)
 
 data SensitivityClause = SensitivityClause SensitivityList
+  deriving (Eq, Show)
 
 data SensitivityList = SensitivityList [Name]
+  deriving (Eq, Show)
 
 data ConditionClause = ConditionClause Condition
+  deriving (Eq, Show)
 
 type Condition = Expression
 
 data TimeoutClause = TimeoutClause Expression
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- * 8.2 Assertion statement
@@ -1908,9 +2040,11 @@ data TimeoutClause = TimeoutClause Expression
 
 data AssertionStatement = AssertionStatement
       (Maybe Label) Assertion
+  deriving (Eq, Show)
 
 data Assertion = Assertion
       Condition (Maybe Expression) (Maybe Expression)
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- * 8.3 Report statement
@@ -1923,6 +2057,7 @@ data Assertion = Assertion
 
 data ReportStatement = ReportStatement
       (Maybe Label) Expression (Maybe Expression)
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- * 8.4 Signal assignment statement
@@ -1945,18 +2080,22 @@ data ReportStatement = ReportStatement
 
 data SignalAssignmentStatement = SignalAssignmentStatement
       (Maybe Label) Target (Maybe DelayMechanism) Waveform
+  deriving (Eq, Show)
 
 data DelayMechanism =
     DMechTransport
   | DMechInertial  (Maybe Expression)
+  deriving (Eq, Show)
 
 data Target = 
     TargetName Name
   | TargetAgg  Aggregate
+  deriving (Eq, Show)
 
 data Waveform =
     WaveElem [WaveformElement]
   | WaveUnaffected
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- ** 8.4.1 Updating a projected output waveform
@@ -1969,6 +2108,7 @@ data Waveform =
 data WaveformElement =
     WaveEExp  Expression (Maybe Expression)
   | WaveENull            (Maybe Expression)
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- * 8.5 Variable assignment statement
@@ -1979,6 +2119,7 @@ data WaveformElement =
 
 data VariableAssignmentStatement = VariableAssignmentStatement
       (Maybe Label) Target Expression
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- ** 8.5.1 Array variable assignments
@@ -1995,9 +2136,11 @@ data VariableAssignmentStatement = VariableAssignmentStatement
 
 data ProcedureCallStatement = ProcedureCallStatement
       (Maybe Label) ProcedureCall
+  deriving (Eq, Show)
 
 data ProcedureCall = ProcedureCall
       Name (Maybe ActualParameterPart)
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- * 8.7 If statement
@@ -2019,6 +2162,7 @@ data IfStatement = IfStatement {
   , if_also      :: [(Condition, SequenceOfStatements)]
   , if_else      :: Maybe SequenceOfStatements
   }
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- * 8.8 Case statement
@@ -2040,8 +2184,10 @@ data CaseStatement = CaseStatement {
   , case_expression   :: Expression
   , case_alternatives :: [CaseStatementAlternative]
   }
+  deriving (Eq, Show)
 
 data CaseStatementAlternative = CaseStatementAlternative Choices SequenceOfStatements
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- * 8.9 Loop statement
@@ -2065,15 +2211,18 @@ data LoopStatement = LoopStatement {
   , loop_iteration_scheme :: Maybe IterationScheme
   , loop_statements       :: SequenceOfStatements
   }
+  deriving (Eq, Show)
 
 data IterationScheme =
     IterWhile Condition
   | IterFor   ParameterSpecification
+  deriving (Eq, Show)
 
 data ParameterSpecification = ParameterSpecification {
     paramspec_identifier     :: Identifier
   , paramspec_discrete_range :: DiscreteRange
   }
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- * 8.10 Next statement
@@ -2087,6 +2236,7 @@ data NextStatement = NextStatement {
   , next_loop  :: Maybe Label
   , next_when  :: Maybe Condition
   }
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- * 8.11 Exit statement
@@ -2100,6 +2250,7 @@ data ExitStatement = ExitStatement {
   , exit_loop  :: Maybe Label
   , exit_when  :: Maybe Condition
   }
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- * 8.12 Return statement
@@ -2112,6 +2263,7 @@ data ReturnStatement = ReturnStatement {
     return_label      :: Maybe Label
   , return_expression :: Maybe Expression
   }
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- * 8.13 Null statement
@@ -2123,6 +2275,7 @@ data ReturnStatement = ReturnStatement {
 data NullStatement = NullStatement {
     null_label :: Maybe Label
   }
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 --
@@ -2151,6 +2304,7 @@ data ConcurrentStatement =
   | ConSignalAss ConcurrentSignalAssignmentStatement
   | ConComponent ComponentInstantiationStatement
   | ConGenerate  GenerateStatement
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- * 9.1 Block statement
@@ -2184,11 +2338,13 @@ data BlockStatement = BlockStatement {
   , blocks_declarative_part :: BlockDeclarativePart
   , blocks_statment_part    :: BlockStatementPart
   }
+  deriving (Eq, Show)
 
 data BlockHeader = BlockHeader {
     blockh_generic_clause   :: Maybe (GenericClause, Maybe GenericMapAspect)
   , blockh_port_clause      :: Maybe (PortClause,    Maybe PortMapAspect)
   }
+  deriving (Eq, Show)
 
 type BlockDeclarativePart = [BlockDeclarativeItem]
 
@@ -2230,6 +2386,7 @@ data ProcessStatement = ProcessStatement {
   , procs_declarative_part :: ProcessDeclarativePart
   , procs_statement_part   :: ProcessStatement
   }
+  deriving (Eq, Show)
 
 type ProcessDeclarativePart = [ProcessDeclarativeItem]
 
@@ -2246,6 +2403,7 @@ data ProcessDeclarativeItem =
   | ProcDIAttrSpec    AttributeSpecification
   | ProcDIUseClause   UseClause
 --  | ProcDIGroupType   ()
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- * 9.3 Concurrent procedure call statements
@@ -2259,6 +2417,7 @@ data ConcurrentProcedureCallStatement = ConcurrentProcedureCallStatement {
   , cpcs_postponed      :: Bool
   , cpcs_procedure_call :: ProcedureCall
   }
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- * 9.4 Concurrent assertion statements
@@ -2272,6 +2431,7 @@ data ConcurrentAssertionStatement = ConcurrentAssertionStatement {
   , cas_postponed      :: Bool
   , cas_assertion      :: Assertion
   }
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- * 9.5 Concurrent signal assignment statements
@@ -2294,11 +2454,13 @@ data ConcurrentSignalAssignmentStatement =
     , csas_select_postponed         :: Bool
     , csas_select_signal_assignment :: SelectedSignalAssignment
     }
+  deriving (Eq, Show)
 
 data Options = Options {
     options_guarded         :: Bool
   , options_delay_mechanism :: Maybe DelayMechanism
   }
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- ** 9.5.1 Conditional signal assignments
@@ -2316,11 +2478,13 @@ data ConditionalSignalAssignment = ConditionalSignalAssignment {
   , csa_options               :: Options
   , csa_conditional_waveforms :: ConditionalWaveforms
   }
+  deriving (Eq, Show)
 
 data ConditionalWaveforms = ConditionalWaveforms {
     cw_optional              :: [(Waveform, Condition)]
   , cw_wave                  :: (Waveform, Maybe Condition)
   }
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- ** 9.5.2 Selected signal assignments
@@ -2340,11 +2504,13 @@ data SelectedSignalAssignment = SelectedSignalAssignment {
   , ssa_options            :: Options
   , ssa_selected_waveforms :: SelectedWaveforms
   }
+  deriving (Eq, Show)
 
 data SelectedWaveforms = SelectedWaveforms {
     sw_optional :: Maybe [(Waveform, Choices)]
   , sw_last     :: (Waveform, Choices)
   }
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- * 9.6 Component instantiation statements
@@ -2367,11 +2533,13 @@ data ComponentInstantiationStatement = ComponentInstantiationStatement {
   , cis_generic_map_aspect  :: Maybe GenericMapAspect
   , cis_port_map_aspect     :: Maybe PortMapAspect
   }
+  deriving (Eq, Show)
 
 data InstantiatedUnit =
     IUComponent Name
   | IUEntity    Name (Maybe Identifier)
   | IUConfig    Name
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 -- ** 9.6.1 Instantiation of a component
@@ -2403,10 +2571,12 @@ data GenerateStatement = GenerateStatement {
   , gens_block_declarative_item :: Maybe (BlockDeclarativeItem)
   , gens_concurrent_statement   :: [ConcurrentStatement]
   }
+  deriving (Eq, Show)
 
 data GenerationScheme =
     GSFor ParameterSpecification
   | GSIf Condition
+  deriving (Eq, Show)
 
 type Label = Identifier
 
@@ -2414,12 +2584,16 @@ type Label = Identifier
 -- ?
 
 data UseClause        = UseClause [SelectedName]
+  deriving (Eq, Show)
 
 data Identifier       = Ident String
+  deriving (Eq, Show)
 
 data CharacterLiteral = CLit Char
+  deriving (Eq, Show)
 
 data StringLiteral    = SLit String
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
 --
@@ -2428,61 +2602,90 @@ data StringLiteral    = SLit String
 --------------------------------------------------------------------------------
 
 data AbstractLiteral  = AbstractLiteral
+  deriving (Eq, Show)
 
 data Base = Base
+  deriving (Eq, Show)
 
 data BaseSpecifier = BaseSpecifier
+  deriving (Eq, Show)
 
 data BaseUnitDeclaration = BaseUnitDeclaration
+  deriving (Eq, Show)
 
 data BasedInteger = BasedInteger
+  deriving (Eq, Show)
 
 data BasedLiteral = BasedLiteral
+  deriving (Eq, Show)
 
 data BasicCharacter = BasicCharacter
+  deriving (Eq, Show)
 
 data BasicGraphicCharacter = BasicGraphicCharacter
+  deriving (Eq, Show)
 
 data BasicIdentifier = BasicIdentifier
+  deriving (Eq, Show)
 
 data BitStringLiteral = BitStringLiteral
+  deriving (Eq, Show)
 
 data BitValue = BitValue
+  deriving (Eq, Show)
 
 data ContextClause = ContextClause
+  deriving (Eq, Show)
 
 data ContextItem = ContextItem
+  deriving (Eq, Show)
 
 data DecimalLiteral = DecimalLiteral
+  deriving (Eq, Show)
 
 data DesignFile = DesignFile
+  deriving (Eq, Show)
 
 data DesignUnit = DesignUnit
+  deriving (Eq, Show)
 
 data Exponent = Exponent
+  deriving (Eq, Show)
 
 data ExtendedDigit = ExtendedDigit
+  deriving (Eq, Show)
 
 data ExtendedIdentifier = ExtendedIdentifier
+  deriving (Eq, Show)
 
 data GraphicCharacter = GraphicCharacter
+  deriving (Eq, Show)
 
 data Letter = Letter
+  deriving (Eq, Show)
 
 data LetterOrDigit = LetterOrDigit
+  deriving (Eq, Show)
 
 data LibraryClause = LibraryClause
+  deriving (Eq, Show)
 
 data LibraryUnit = LibraryUnit
+  deriving (Eq, Show)
 
 data LogicalName = LogicalName
+  deriving (Eq, Show)
 
 data LogicalNameList = LogicalNameList
+  deriving (Eq, Show)
 
 data PrimaryUnit = PrimaryUnit
+  deriving (Eq, Show)
 
 data ProcessStatementPart = ProcessStatementPart
+  deriving (Eq, Show)
 
 data SecondaryUnit = SecondaryUnit
+  deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
