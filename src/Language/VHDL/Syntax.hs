@@ -2405,7 +2405,7 @@ data ProcessDeclarativeItem =
 --  | ProcDIGroupType   ()
   deriving (Eq, Show)
 
-type ProcessStatementPart = SequentialStatement
+type ProcessStatementPart = [SequentialStatement]
 
 --------------------------------------------------------------------------------
 -- * 9.3 Concurrent procedure call statements
