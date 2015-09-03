@@ -599,7 +599,7 @@ instance Pretty InterfaceDeclaration where
   pp (InterfaceConstantDeclaration is s e) =
     text "CONSTANT" <+> pp is <+> colon <+> text "IN" <+> pp s <+> condL (text ":=") e
   pp (InterfaceSignalDeclaration is m s b e) =
-    text "SIGNAL" <+> pp is <+> colon <+> cond id m <+> pp s <+> when b (text "BUS") <+> condL (text ":=") e
+    {-text "SIGNAL" <+> -}pp is <+> colon <+> cond id m <+> pp s <+> when b (text "BUS") <+> condL (text ":=") e
   pp (InterfaceVariableDeclaration is m s e) =
     text "VARIABLE" <+> pp is <+> colon <+> cond id m <+> pp s <+> condL (text ":=") e
   pp (InterfaceFileDeclaration is s) =
@@ -608,7 +608,7 @@ instance Pretty InterfaceDeclaration where
 --instance Pretty InterfaceElement where pp = undefined
 
 instance Pretty InterfaceList where
-  pp (InterfaceList es) = semiSep $ map pp es
+  pp (InterfaceList es) = foldr ($+$) empty $ punctuate semi $ map pp es
 
 instance Pretty IterationScheme where
   pp (IterWhile c) = text "WHILE" <+> pp c
