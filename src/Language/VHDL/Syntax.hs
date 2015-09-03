@@ -2384,7 +2384,7 @@ data ProcessStatement = ProcessStatement {
   , procs_postponed        :: Bool
   , procs_sensitivity_list :: Maybe SensitivityList
   , procs_declarative_part :: ProcessDeclarativePart
-  , procs_statement_part   :: ProcessStatement
+  , procs_statement_part   :: ProcessStatementPart
   }
   deriving (Eq, Show)
 
@@ -2404,6 +2404,8 @@ data ProcessDeclarativeItem =
   | ProcDIUseClause   UseClause
 --  | ProcDIGroupType   ()
   deriving (Eq, Show)
+
+type ProcessStatementPart = SequentialStatement
 
 --------------------------------------------------------------------------------
 -- * 9.3 Concurrent procedure call statements
@@ -2680,9 +2682,6 @@ data LogicalNameList = LogicalNameList
   deriving (Eq, Show)
 
 data PrimaryUnit = PrimaryUnit
-  deriving (Eq, Show)
-
-data ProcessStatementPart = ProcessStatementPart
   deriving (Eq, Show)
 
 data SecondaryUnit = SecondaryUnit
