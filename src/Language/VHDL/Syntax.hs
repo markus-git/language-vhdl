@@ -508,22 +508,22 @@ data PackageDeclaration = PackageDeclaration {
 type PackageDeclarativePart = [PackageDeclarativeItem]
 
 data PackageDeclarativeItem =
-    PDISubprogDecl  SubprogramDeclaration
-  | PDISubprogBody  SubprogramBody
-  | PDITypeDecl     TypeDeclaration
-  | PDISubtypeDecl  SubtypeDeclaration
-  | PDIConstantDecl ConstantDeclaration
-  | PDISignalDecl   SignalDeclaration
-  | PDISharedDecl   VariableDeclaration
-  | PDIFileDecl     FileDeclaration
-  | PDIAliasDecl    AliasDeclaration
-  | PDICompDecl     ComponentDeclaration
-  | PDIAttrDecl     AttributeDeclaration
-  | PDIAttrSpec     AttributeSpecification
-  | PDIDiscSpec     DisconnectionSpecification
-  | PDIUseClause    UseClause
-  | PDIGroupTemp    GroupTemplateDeclaration
-  | PDIGroupDecl    GroupDeclaration
+    PHDISubprogDecl  SubprogramDeclaration
+  | PHDISubprogBody  SubprogramBody
+  | PHDITypeDecl     TypeDeclaration
+  | PHDISubtypeDecl  SubtypeDeclaration
+  | PHDIConstantDecl ConstantDeclaration
+  | PHDISignalDecl   SignalDeclaration
+  | PHDISharedDecl   VariableDeclaration
+  | PHDIFileDecl     FileDeclaration
+  | PHDIAliasDecl    AliasDeclaration
+  | PHDICompDecl     ComponentDeclaration
+  | PHDIAttrDecl     AttributeDeclaration
+  | PHDIAttrSpec     AttributeSpecification
+  | PHDIDiscSpec     DisconnectionSpecification
+  | PHDIUseClause    UseClause
+  | PHDIGroupTemp    GroupTemplateDeclaration
+  | PHDIGroupDecl    GroupDeclaration
   deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
@@ -2391,17 +2391,17 @@ data ProcessStatement = ProcessStatement {
 type ProcessDeclarativePart = [ProcessDeclarativeItem]
 
 data ProcessDeclarativeItem =
-    ProcDISubprogDecl SubprogramDeclaration
-  | ProcDISubprogBody SubprogramBody
-  | ProcDIType        TypeDeclaration
-  | ProcDISubtype     SubtypeDeclaration
-  | ProcDIConstant    ConstantDeclaration
-  | ProcDIVariable    VariableDeclaration
-  | ProcDIFile        FileDeclaration
-  | ProcDIAlias       AliasDeclaration
-  | ProcDIAttrDecl    AttributeDeclaration
-  | ProcDIAttrSpec    AttributeSpecification
-  | ProcDIUseClause   UseClause
+    PDISubprogDecl SubprogramDeclaration
+  | PDISubprogBody SubprogramBody
+  | PDIType        TypeDeclaration
+  | PDISubtype     SubtypeDeclaration
+  | PDIConstant    ConstantDeclaration
+  | PDIVariable    VariableDeclaration
+  | PDIFile        FileDeclaration
+  | PDIAlias       AliasDeclaration
+  | PDIAttrDecl    AttributeDeclaration
+  | PDIAttrSpec    AttributeSpecification
+  | PDIUseClause   UseClause
 --  | ProcDIGroupType   ()
   deriving (Eq, Show)
 

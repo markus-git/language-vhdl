@@ -728,22 +728,22 @@ instance Pretty PackageDeclaration where
          ]
 
 instance Pretty PackageDeclarativeItem where
-  pp (PDISubprogDecl s)  = pp s
-  pp (PDISubprogBody b)  = pp b
-  pp (PDITypeDecl t)     = pp t
-  pp (PDISubtypeDecl s)  = pp s
-  pp (PDIConstantDecl c) = pp c
-  pp (PDISignalDecl s)   = pp s
-  pp (PDISharedDecl v)   = pp v
-  pp (PDIFileDecl f)     = pp f
-  pp (PDIAliasDecl a)    = pp a
-  pp (PDICompDecl c)     = pp c
-  pp (PDIAttrDecl a)     = pp a
-  pp (PDIAttrSpec a)     = pp a
-  pp (PDIDiscSpec d)     = pp d
-  pp (PDIUseClause u)    = pp u
-  pp (PDIGroupTemp g)    = pp g
-  pp (PDIGroupDecl g)    = pp g
+  pp (PHDISubprogDecl s)  = pp s
+  pp (PHDISubprogBody b)  = pp b
+  pp (PHDITypeDecl t)     = pp t
+  pp (PHDISubtypeDecl s)  = pp s
+  pp (PHDIConstantDecl c) = pp c
+  pp (PHDISignalDecl s)   = pp s
+  pp (PHDISharedDecl v)   = pp v
+  pp (PHDIFileDecl f)     = pp f
+  pp (PHDIAliasDecl a)    = pp a
+  pp (PHDICompDecl c)     = pp c
+  pp (PHDIAttrDecl a)     = pp a
+  pp (PHDIAttrSpec a)     = pp a
+  pp (PHDIDiscSpec d)     = pp d
+  pp (PHDIUseClause u)    = pp u
+  pp (PHDIGroupTemp g)    = pp g
+  pp (PHDIGroupDecl g)    = pp g
   
 --instance Pretty PackageDeclarativePart where pp = undefined
 
@@ -795,17 +795,17 @@ instance Pretty ProcedureCallStatement where
   pp (ProcedureCallStatement l p) = condR colon l <+> pp p <+> semi
 
 instance Pretty ProcessDeclarativeItem where
-  pp (ProcDISubprogDecl s) = pp s
-  pp (ProcDISubprogBody b) = pp b
-  pp (ProcDIType t)        = pp t
-  pp (ProcDISubtype s)     = pp s
-  pp (ProcDIConstant c)    = pp c
-  pp (ProcDIVariable v)    = pp v
-  pp (ProcDIFile f)        = pp f
-  pp (ProcDIAlias a)       = pp a
-  pp (ProcDIAttrDecl a)    = pp a
-  pp (ProcDIAttrSpec a)    = pp a
-  pp (ProcDIUseClause u)   = pp u
+  pp (PDISubprogDecl s) = pp s
+  pp (PDISubprogBody b) = pp b
+  pp (PDIType t)        = pp t
+  pp (PDISubtype s)     = pp s
+  pp (PDIConstant c)    = pp c
+  pp (PDIVariable v)    = pp v
+  pp (PDIFile f)        = pp f
+  pp (PDIAlias a)       = pp a
+  pp (PDIAttrDecl a)    = pp a
+  pp (PDIAttrSpec a)    = pp a
+  pp (PDIUseClause u)   = pp u
 
 --instance Pretty ProcessDeclarativePart where pp = undefined
 
