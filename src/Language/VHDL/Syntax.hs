@@ -97,19 +97,19 @@ type EntityDeclarativePart = [EntityDeclarativeItem]
 data EntityDeclarativeItem =
     EDISubprogDecl  SubprogramDeclaration
   | EDISubprogBody  SubprogramBody
-  | EDITypeDecl     TypeDeclaration
-  | EDISubtypeDecl  SubtypeDeclaration
-  | EDIConstantDecl ConstantDeclaration
-  | EDISignalDecl   SignalDeclaration
-  | EDISharedDecl   VariableDeclaration
-  | EDIFileDecl     FileDeclaration
-  | EDIAliasDecl    AliasDeclaration
+  | EDIType         TypeDeclaration
+  | EDISubtype      SubtypeDeclaration
+  | EDIConstant     ConstantDeclaration
+  | EDISignal       SignalDeclaration
+  | EDIShared       VariableDeclaration
+  | EDIFile         FileDeclaration
+  | EDIAlias        AliasDeclaration
   | EDIAttrDecl     AttributeDeclaration
   | EDIAttrSpec     AttributeSpecification
   | EDIDiscSpec     DisconnectionSpecification
   | EDIUseClause    UseClause
   | EDIGroupTemp    GroupTemplateDeclaration
-  | EDIGroupDecl    GroupDeclaration
+  | EDIGroup        GroupDeclaration
   deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
@@ -183,21 +183,21 @@ type ArchitectureDeclarativePart = [BlockDeclarativeItem]
 data BlockDeclarativeItem =
     BDISubprogDecl  SubprogramDeclaration
   | BDISubprogBody  SubprogramBody
-  | BDITypeDecl     TypeDeclaration
-  | BDISubtypeDecl  SubtypeDeclaration
-  | BDIConstantDecl ConstantDeclaration
-  | BDISignalDecl   SignalDeclaration
-  | BDISharedDecl   VariableDeclaration
-  | BDIFileDecl     FileDeclaration
-  | BDIAliasDecl    AliasDeclaration
-  | BDICompDecl     ComponentDeclaration
+  | BDIType         TypeDeclaration
+  | BDISubtype      SubtypeDeclaration
+  | BDIConstant     ConstantDeclaration
+  | BDISignal       SignalDeclaration
+  | BDIShared       VariableDeclaration
+  | BDIFile         FileDeclaration
+  | BDIAlias        AliasDeclaration
+  | BDIComp         ComponentDeclaration
   | BDIAttrDecl     AttributeDeclaration
   | BDIAttrSepc     AttributeSpecification
   | BDIConfigSepc   ConfigurationSpecification
   | BDIDisconSpec   DisconnectionSpecification
   | BDIUseClause    UseClause
   | BDIGroupTemp    GroupTemplateDeclaration
-  | BDIGroupDecl    GroupDeclaration
+  | BDIGroup        GroupDeclaration
   deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
@@ -239,9 +239,9 @@ data ConfigurationDeclaration = ConfigurationDeclaration {
 type ConfigurationDeclarativePart = [ConfigurationDeclarativeItem]
 
 data ConfigurationDeclarativeItem =
-    CDIUse   UseClause
-  | CDIAttr  AttributeSpecification
-  | CDIGroup GroupDeclaration
+    CDIUse       UseClause
+  | CDIAttrSpec  AttributeSpecification
+  | CDIGroup     GroupDeclaration
   deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
@@ -428,17 +428,17 @@ type SubprogramDeclarativePart = [SubprogramDeclarativeItem]
 data SubprogramDeclarativeItem =
     SDISubprogDecl  SubprogramDeclaration
   | SDISubprogBody  SubprogramBody
-  | SDITypeDecl     TypeDeclaration
-  | SDISubtypeDecl  SubtypeDeclaration
-  | SDIConstantDecl ConstantDeclaration
-  | SDIVariableDecl VariableDeclaration
-  | SDIFileDecl     FileDeclaration
-  | SDIAliasDecl    AliasDeclaration
+  | SDIType         TypeDeclaration
+  | SDISubtype      SubtypeDeclaration
+  | SDIConstant     ConstantDeclaration
+  | SDIVariable     VariableDeclaration
+  | SDIFile         FileDeclaration
+  | SDIAlias        AliasDeclaration
   | SDIAttrDecl     AttributeDeclaration
   | SDIAttrSepc     AttributeSpecification
   | SDIUseClause    UseClause
   | SDIGroupTemp    GroupTemplateDeclaration
-  | SDIGroupDecl    GroupDeclaration
+  | SDIGroup        GroupDeclaration
   deriving (Eq, Show)
     
 type SubprogramStatementPart   = [SequentialStatement]
@@ -510,20 +510,20 @@ type PackageDeclarativePart = [PackageDeclarativeItem]
 data PackageDeclarativeItem =
     PHDISubprogDecl  SubprogramDeclaration
   | PHDISubprogBody  SubprogramBody
-  | PHDITypeDecl     TypeDeclaration
-  | PHDISubtypeDecl  SubtypeDeclaration
-  | PHDIConstantDecl ConstantDeclaration
-  | PHDISignalDecl   SignalDeclaration
-  | PHDISharedDecl   VariableDeclaration
-  | PHDIFileDecl     FileDeclaration
-  | PHDIAliasDecl    AliasDeclaration
-  | PHDICompDecl     ComponentDeclaration
+  | PHDIType         TypeDeclaration
+  | PHDISubtype      SubtypeDeclaration
+  | PHDIConstant     ConstantDeclaration
+  | PHDISignal       SignalDeclaration
+  | PHDIShared       VariableDeclaration
+  | PHDIFile         FileDeclaration
+  | PHDIAlias        AliasDeclaration
+  | PHDIComp         ComponentDeclaration
   | PHDIAttrDecl     AttributeDeclaration
   | PHDIAttrSpec     AttributeSpecification
   | PHDIDiscSpec     DisconnectionSpecification
   | PHDIUseClause    UseClause
   | PHDIGroupTemp    GroupTemplateDeclaration
-  | PHDIGroupDecl    GroupDeclaration
+  | PHDIGroup        GroupDeclaration
   deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
@@ -562,15 +562,15 @@ type PackageBodyDeclarativePart = [PackageBodyDeclarativeItem]
 data PackageBodyDeclarativeItem = 
     PBDISubprogDecl  SubprogramDeclaration
   | PBDISubprogBody  SubprogramBody
-  | PBDITypeDecl     TypeDeclaration
-  | PBDISubtypeDecl  SubtypeDeclaration
-  | PBDIConstantDecl ConstantDeclaration
-  | PBDISharedDecl   VariableDeclaration
-  | PBDIFileDecl     FileDeclaration
-  | PBDIAliasDecl    AliasDeclaration
+  | PBDIType         TypeDeclaration
+  | PBDISubtype      SubtypeDeclaration
+  | PBDIConstant     ConstantDeclaration
+  | PBDIShared       VariableDeclaration
+  | PBDIFile         FileDeclaration
+  | PBDIAlias        AliasDeclaration
   | PBDIUseClause    UseClause
   | PBDIGroupTemp    GroupTemplateDeclaration
-  | PBDIGroupDecl    GroupDeclaration
+  | PBDIGroup        GroupDeclaration
   deriving (Eq, Show)
 
 --------------------------------------------------------------------------------

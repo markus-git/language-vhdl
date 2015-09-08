@@ -147,23 +147,23 @@ instance Pretty BlockConfiguration where
          , text "END FOR" <+> semi]
 
 instance Pretty BlockDeclarativeItem where
-  pp (BDISubprogDecl d)  = pp d
-  pp (BDISubprogBody b)  = pp b
-  pp (BDITypeDecl t)     = pp t
-  pp (BDISubtypeDecl s)  = pp s
-  pp (BDIConstantDecl c) = pp c
-  pp (BDISignalDecl s)   = pp s
-  pp (BDISharedDecl v)   = pp v
-  pp (BDIFileDecl f)     = pp f
-  pp (BDIAliasDecl a)    = pp a
-  pp (BDICompDecl c)     = pp c
-  pp (BDIAttrDecl a)     = pp a
-  pp (BDIAttrSepc a)     = pp a
-  pp (BDIConfigSepc c)   = pp c
-  pp (BDIDisconSpec d)   = pp d
-  pp (BDIUseClause u)    = pp u
-  pp (BDIGroupTemp g)    = pp g
-  pp (BDIGroupDecl g)    = pp g
+  pp (BDISubprogDecl d) = pp d
+  pp (BDISubprogBody b) = pp b
+  pp (BDIType t)        = pp t
+  pp (BDISubtype s)     = pp s
+  pp (BDIConstant c)    = pp c
+  pp (BDISignal s)      = pp s
+  pp (BDIShared v)      = pp v
+  pp (BDIFile f)        = pp f
+  pp (BDIAlias a)       = pp a
+  pp (BDIComp c)        = pp c
+  pp (BDIAttrDecl a)    = pp a
+  pp (BDIAttrSepc a)    = pp a
+  pp (BDIConfigSepc c)  = pp c
+  pp (BDIDisconSpec d)  = pp d
+  pp (BDIUseClause u)   = pp u
+  pp (BDIGroupTemp g)   = pp g
+  pp (BDIGroup g)       = pp g
 
 --instance Pretty BlockDeclarativePart where pp = undefined
 
@@ -289,9 +289,9 @@ instance Pretty ConfigurationDeclaration where
          ]
 
 instance Pretty ConfigurationDeclarativeItem where
-  pp (CDIUse u)   = pp u
-  pp (CDIAttr a)  = pp a
-  pp (CDIGroup g) = pp g
+  pp (CDIUse u)      = pp u
+  pp (CDIAttrSpec a) = pp a
+  pp (CDIGroup g)    = pp g
 
 --instance Pretty ConfigurationDeclarativePart where pp = undefined
 
@@ -409,19 +409,19 @@ instance Pretty EntityDeclaration where
 instance Pretty EntityDeclarativeItem where
   pp (EDISubprogDecl s)  = pp s
   pp (EDISubprogBody b)  = pp b
-  pp (EDITypeDecl t)     = pp t
-  pp (EDISubtypeDecl s)  = pp s
-  pp (EDIConstantDecl c) = pp c
-  pp (EDISignalDecl s)   = pp s
-  pp (EDISharedDecl s)   = pp s
-  pp (EDIFileDecl f)     = pp f
-  pp (EDIAliasDecl a)    = pp a
+  pp (EDIType t)         = pp t
+  pp (EDISubtype s)      = pp s
+  pp (EDIConstant c)     = pp c
+  pp (EDISignal s)       = pp s
+  pp (EDIShared s)       = pp s
+  pp (EDIFile f)         = pp f
+  pp (EDIAlias a)        = pp a
   pp (EDIAttrDecl a)     = pp a
   pp (EDIAttrSpec a)     = pp a
   pp (EDIDiscSpec d)     = pp d
   pp (EDIUseClause u)    = pp u
   pp (EDIGroupTemp g)    = pp g
-  pp (EDIGroupDecl g)    = pp g
+  pp (EDIGroup g)        = pp g
 
 --instance Pretty EntityDeclarativePart where pp = undefined
 
@@ -706,17 +706,17 @@ instance Pretty PackageBody where
          ]
 
 instance Pretty PackageBodyDeclarativeItem where
-  pp (PBDISubprogDecl s)  = pp s
-  pp (PBDISubprogBody b)  = pp b
-  pp (PBDITypeDecl t)     = pp t
-  pp (PBDISubtypeDecl s)  = pp s
-  pp (PBDIConstantDecl c) = pp c
-  pp (PBDISharedDecl s)   = pp s
-  pp (PBDIFileDecl f)     = pp f
-  pp (PBDIAliasDecl a)    = pp a
-  pp (PBDIUseClause u)    = pp u
-  pp (PBDIGroupTemp g)    = pp g
-  pp (PBDIGroupDecl g)    = pp g
+  pp (PBDISubprogDecl s) = pp s
+  pp (PBDISubprogBody b) = pp b
+  pp (PBDIType t)        = pp t
+  pp (PBDISubtype s)     = pp s
+  pp (PBDIConstant c)    = pp c
+  pp (PBDIShared s)      = pp s
+  pp (PBDIFile f)        = pp f
+  pp (PBDIAlias a)       = pp a
+  pp (PBDIUseClause u)   = pp u
+  pp (PBDIGroupTemp g)   = pp g
+  pp (PBDIGroup g)       = pp g
 
 --Instance Pretty PackageBodyDeclarativePart where pp = undefined
 
@@ -728,22 +728,22 @@ instance Pretty PackageDeclaration where
          ]
 
 instance Pretty PackageDeclarativeItem where
-  pp (PHDISubprogDecl s)  = pp s
-  pp (PHDISubprogBody b)  = pp b
-  pp (PHDITypeDecl t)     = pp t
-  pp (PHDISubtypeDecl s)  = pp s
-  pp (PHDIConstantDecl c) = pp c
-  pp (PHDISignalDecl s)   = pp s
-  pp (PHDISharedDecl v)   = pp v
-  pp (PHDIFileDecl f)     = pp f
-  pp (PHDIAliasDecl a)    = pp a
-  pp (PHDICompDecl c)     = pp c
-  pp (PHDIAttrDecl a)     = pp a
-  pp (PHDIAttrSpec a)     = pp a
-  pp (PHDIDiscSpec d)     = pp d
-  pp (PHDIUseClause u)    = pp u
-  pp (PHDIGroupTemp g)    = pp g
-  pp (PHDIGroupDecl g)    = pp g
+  pp (PHDISubprogDecl s) = pp s
+  pp (PHDISubprogBody b) = pp b
+  pp (PHDIType t)        = pp t
+  pp (PHDISubtype s)     = pp s
+  pp (PHDIConstant c)    = pp c
+  pp (PHDISignal s)      = pp s
+  pp (PHDIShared v)      = pp v
+  pp (PHDIFile f)        = pp f
+  pp (PHDIAlias a)       = pp a
+  pp (PHDIComp c)        = pp c
+  pp (PHDIAttrDecl a)    = pp a
+  pp (PHDIAttrSpec a)    = pp a
+  pp (PHDIDiscSpec d)    = pp d
+  pp (PHDIUseClause u)   = pp u
+  pp (PHDIGroupTemp g)   = pp g
+  pp (PHDIGroup g)       = pp g
   
 --instance Pretty PackageDeclarativePart where pp = undefined
 
@@ -978,19 +978,19 @@ instance Pretty SubprogramBody where
 --instance Pretty SubprogramDeclaration where pp = undefined
 
 instance Pretty SubprogramDeclarativeItem where
-  pp (SDISubprogDecl d)  = pp d
-  pp (SDISubprogBody b)  = pp b
-  pp (SDITypeDecl t)     = pp t
-  pp (SDISubtypeDecl s)  = pp s
-  pp (SDIConstantDecl c) = pp c
-  pp (SDIVariableDecl v) = pp v
-  pp (SDIFileDecl f)     = pp f
-  pp (SDIAliasDecl a)    = pp a
-  pp (SDIAttrDecl a)     = pp a
-  pp (SDIAttrSepc a)     = pp a
-  pp (SDIUseClause u)    = pp u
-  pp (SDIGroupTemp g)    = pp g
-  pp (SDIGroupDecl g)    = pp g
+  pp (SDISubprogDecl d) = pp d
+  pp (SDISubprogBody b) = pp b
+  pp (SDIType t)        = pp t
+  pp (SDISubtype s)     = pp s
+  pp (SDIConstant c)    = pp c
+  pp (SDIVariable v)    = pp v
+  pp (SDIFile f)        = pp f
+  pp (SDIAlias a)       = pp a
+  pp (SDIAttrDecl a)    = pp a
+  pp (SDIAttrSepc a)    = pp a
+  pp (SDIUseClause u)   = pp u
+  pp (SDIGroupTemp g)   = pp g
+  pp (SDIGroup g)       = pp g
 
 --instance Pretty SubprogramDeclarativePart where pp = undefined
 
