@@ -815,7 +815,7 @@ instance Pretty ProcessStatement where
       [ post <+> cond parens ss <+> text "IS"
         `hangs` pp d
       , text "BEGIN"
-        `hangs` pp s
+        `hangs` vpp s
       , text "END" <+> post <+> cond id l <+> semi
       ]
     where
