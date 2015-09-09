@@ -2377,6 +2377,9 @@ type BlockStatementPart   = [ConcurrentStatement]
       | attribute_specification
       | use_clause
       | group_type_declaration
+
+    process_statement_part ::=
+      { sequential_statement }
 -}
 
 data ProcessStatement = ProcessStatement {
