@@ -812,8 +812,8 @@ instance Pretty ProcessDeclarativeItem where
 instance Pretty ProcessStatement where
   pp (ProcessStatement l p ss d s) =
     condR colon l `hangs` vcat
-      [ post <+> cond parens ss <+> text "IS"
-        `hangs` pp d
+      [ (post <+> cond parens ss <+> text "IS")
+        `hangs` vpp d
       , text "BEGIN"
         `hangs` vpp s
       , text "END" <+> post <+> cond id l <+> semi
@@ -1107,7 +1107,7 @@ indent :: Doc -> Doc
 indent = nest 4
 
 hangs  :: Doc -> Doc -> Doc
-hangs  = flip hang 4
+hangs d1 d2 = d1 $+$ indent d2
 
 --------------------------------------------------------------------------------
 -- conditional print
