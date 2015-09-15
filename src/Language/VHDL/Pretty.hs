@@ -1118,7 +1118,7 @@ hangs d1 d2 = d1 $+$ indent d2
 
 labels  :: Pretty a => Maybe a -> Doc -> Doc
 labels (Nothing) doc = doc
-labels (Just a)  doc = pp a `hangs` doc
+labels (Just a)  doc = (pp a <+> colon) `hangs` doc
 
 --------------------------------------------------------------------------------
 -- conditional print
