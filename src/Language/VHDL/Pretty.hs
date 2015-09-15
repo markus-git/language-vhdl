@@ -192,7 +192,7 @@ instance Pretty BlockStatement where
 
 instance Pretty CaseStatement where
   pp (CaseStatement l e cs) =
-      cond id l <+> colon `hangs` vcat [header, body, footer]
+      labels l $ vcat [header, body, footer]
     where
       header = text "CASE" <+> pp e <+> text "IS"
       body   = indent $ vcat $ map pp cs
@@ -458,7 +458,7 @@ instance Pretty EnumerationTypeDefinition where
 
 instance Pretty ExitStatement where
   pp (ExitStatement l b c) =
-    condR colon l <+> text "NEXT" <+> cond id b <+> condL (text "WHEN") c <+> semi
+    label l <+> text "NEXT" <+> cond id b <+> condL (text "WHEN") c <+> semi
 
 instance Pretty Exponent where pp = error "missing: Exponent" -- todo
 
@@ -558,15 +558,15 @@ instance Pretty Identifier where
 
 instance Pretty IfStatement where
   pp (IfStatement l (tc, ts) a e) =
-    condR colon l `hangs` vcat
-      [ text "IF" <+> pp tc <+> text "THEN" `hangs` vpp ts
+    labels l $ vcat
+      [ (text "IF" <+> pp tc <+> text "THEN") `hangs` vpp ts
       , elseIf' a
       , else'   e
       , text "END IF" <+> cond id l <+> semi
       ]
     where
       elseIf' :: [(Condition, SequenceOfStatements)] -> Doc
-      elseIf' = vcat . fmap (\(c, ss) -> text "ELSEIF" <+> pp c <+> text "THEN" `hangs` (vpp ss))
+      elseIf' = vcat . fmap (\(c, ss) -> (text "ELSEIF" <+> pp c <+> text "THEN") `hangs` (vpp ss))
 
       else'   :: Maybe SequenceOfStatements -> Doc
       else' (Nothing) = empty
@@ -652,7 +652,7 @@ instance Pretty LogicalOperator where
 
 instance Pretty LoopStatement where
   pp (LoopStatement l i ss) =
-    condR colon l `hangs` vcat
+    labels l $ vcat
       [ cond id i <+> text "LOOP"
       , indent $ pp ss
       , text "END LOOP" <+> cond id l <+> semi
@@ -685,10 +685,10 @@ instance Pretty Name where
   pp (NAttr a)   = pp a
 
 instance Pretty NextStatement where
-  pp (NextStatement l b c) = condR colon l <+> text "NEXT" <+> cond id b <+> condL (text "WHEN") c <+> semi
+  pp (NextStatement l b c) = label l <+> text "NEXT" <+> cond id b <+> condL (text "WHEN") c <+> semi
 
 instance Pretty NullStatement where
-  pp (NullStatement l) = condR colon l <+> text "NULL"
+  pp (NullStatement l) = label l <+> text "NULL"
 
 instance Pretty NumericLiteral where
   pp (NLitAbstract a) = pp a
@@ -799,7 +799,7 @@ instance Pretty ProcedureCall where
   pp (ProcedureCall n ap) = pp n <+> cond parens ap
 
 instance Pretty ProcedureCallStatement where
-  pp (ProcedureCallStatement l p) = condR colon l <+> pp p <+> semi
+  pp (ProcedureCallStatement l p) = label l <+> pp p <+> semi
 
 instance Pretty ProcessDeclarativeItem where
   pp (PDISubprogDecl s) = pp s
@@ -818,7 +818,7 @@ instance Pretty ProcessDeclarativeItem where
 
 instance Pretty ProcessStatement where
   pp (ProcessStatement l p ss d s) =
-    condR colon l `hangs` vcat
+    labels l $ vcat
       [ (post <+> cond parens ss <+> text "IS")
         `hangs` vpp d
       , text "BEGIN"
@@ -862,10 +862,10 @@ instance Pretty RelationalOperator where
 
 instance Pretty ReportStatement where
   pp (ReportStatement l e s) =
-    condR colon l `hangs` (text "REPORT" <+> pp e `hangs` condL (text "SEVERITY") s)
+    labels l $ (text "REPORT" <+> pp e `hangs` condL (text "SEVERITY") s)
 
 instance Pretty ReturnStatement where
-  pp (ReturnStatement l e) = condR colon l <+> text "RETURN" <+> condR semi e
+  pp (ReturnStatement l e) = label l <+> text "RETURN" <+> condR semi e
 
 instance Pretty ScalarTypeDefinition where
   pp (ScalarEnum e)  = pp e
@@ -935,7 +935,7 @@ instance Pretty Sign where
 
 instance Pretty SignalAssignmentStatement where
   pp (SignalAssignmentStatement l t d w) =
-        condR colon l <+> pp t <+> text "<="
+        label l <+> pp t <+> text "<="
     <+> cond  id    d <+> pp w <+> semi
 
 instance Pretty SignalDeclaration where
@@ -1069,7 +1069,7 @@ instance Pretty UseClause where
   pp (UseClause ns) = text "USE" <+> commaSep (map pp ns) <+> semi
 
 instance Pretty VariableAssignmentStatement where
-  pp (VariableAssignmentStatement l t e) = condR colon l <+> pp t <+> text ":=" <+> pp e <+> semi
+  pp (VariableAssignmentStatement l t e) = label l <+> pp t <+> text ":=" <+> pp e <+> semi
 
 instance Pretty VariableDeclaration where
   pp (VariableDeclaration s is sub e) =
@@ -1079,7 +1079,7 @@ instance Pretty VariableDeclaration where
 
 instance Pretty WaitStatement where
   pp (WaitStatement l sc cc tc) =
-    condR colon l <+> text "WAIT" <+> pp' sc <+> pp' cc <+> pp' tc <+> semi
+    label l <+> text "WAIT" <+> pp' sc <+> pp' cc <+> pp' tc <+> semi
 
 instance Pretty Waveform where
   pp (WaveElem es)    = commaSep $ map pp es
@@ -1116,6 +1116,10 @@ indent = nest 4
 hangs  :: Doc -> Doc -> Doc
 hangs d1 d2 = d1 $+$ indent d2
 
+labels  :: Pretty a => Maybe a -> Doc -> Doc
+labels (Nothing) doc = doc
+labels (Just a)  doc = pp a `hangs` doc
+
 --------------------------------------------------------------------------------
 -- conditional print
 
@@ -1147,6 +1151,6 @@ vpp :: Pretty a => [a] -> Doc
 vpp = foldr ($+$) empty . map pp
 
 postponed :: Pretty a => Maybe Label -> Bool -> a -> Doc
-postponed l b a = condR colon l <+> when b (text "POSTPONED") <+> pp a
+postponed l b a = label l <+> when b (text "POSTPONED") <+> pp a
 
 --------------------------------------------------------------------------------
