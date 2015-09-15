@@ -559,11 +559,18 @@ instance Pretty Identifier where
 instance Pretty IfStatement where
   pp (IfStatement l (tc, ts) a e) =
     condR colon l `hangs` vcat
-      [ text "IF" <+> pp tc <+> text "THEN"
-      , vcat $ fmap (\(c, s) -> text "ELSEIF" <+> pp c <+> text "THEN" `hangs` pp s) a
-      , cond (hangs (text "ELSE")) e
+      [ text "IF" <+> pp tc <+> text "THEN" `hangs` vpp ts
+      , elseIf' a
+      , else'   e
       , text "END IF" <+> cond id l <+> semi
       ]
+    where
+      elseIf' :: [(Condition, SequenceOfStatements)] -> Doc
+      elseIf' = vcat . fmap (\(c, ss) -> text "ELSEIF" <+> pp c <+> text "THEN" `hangs` (vpp ss))
+
+      else'   :: Maybe SequenceOfStatements -> Doc
+      else' (Nothing) = empty
+      else' (Just ss) = text "ELSE" `hangs` (vpp ss)
 
 instance Pretty IncompleteTypeDeclaration where
   pp (IncompleteTypeDeclaration i) = text "TYPE" <+> pp i <+> semi
