@@ -527,12 +527,12 @@ instance Pretty GenerationScheme where
   pp (GSIf c)  = pp c
 
 instance Pretty GenericClause where
-  pp (GenericClause ls) = text "GENERIC" <+> parens (pp ls)
+  pp (GenericClause ls) = text "GENERIC" <+> parens (pp ls) <+> semi
 
 --instance Pretty GenericList where pp = undefined
 
 instance Pretty GenericMapAspect where
-  pp (GenericMapAspect as) = text "GENERIC MAP" <+> parens (pp as)
+  pp (GenericMapAspect as) = text "GENERIC MAP" <+> parens (pp as) <+> semi
 
 instance Pretty GraphicCharacter where pp = error "missing: GraphicCharacter" -- todo
 
@@ -772,12 +772,12 @@ instance Pretty PhysicalTypeDefinition where
       ]
 
 instance Pretty PortClause where
-  pp (PortClause ls) = text "PORT" <+> parens (pp ls)
+  pp (PortClause ls) = text "PORT" <+> parens (pp ls) <+> semi
 
 --instance Pretty PortList where pp = undefined
 
 instance Pretty PortMapAspect where
-  pp (PortMapAspect as) = text "PORT MAP" <+> parens (pp as)
+  pp (PortMapAspect as) = text "PORT MAP" <+> parens (pp as) <+> semi
 
 instance Pretty Prefix where
   pp (PName n) = pp n
