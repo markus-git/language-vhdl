@@ -76,7 +76,7 @@ instance Pretty ArchitectureBody where
       header = text "ARCHITECTURE" <+> pp i
            <+> text "OF" <+> pp n
            <+> text "IS"
-      footer = text "END ARCITECTURE" <+> pp i <+> semi
+      footer = text "END ARCHITECTURE" <+> pp i <+> semi
 
 --instance Pretty ArchitectureDeclarativePart where pp = undefined
 
