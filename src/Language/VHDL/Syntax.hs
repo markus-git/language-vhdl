@@ -2695,7 +2695,7 @@ type LogicalName = Identifier
       | use_clause
 -}
 
-type ContextClause = Maybe (ContextItem)
+type ContextClause = [ContextItem]
 
 data ContextItem =
     ContextLibrary LibraryClause
