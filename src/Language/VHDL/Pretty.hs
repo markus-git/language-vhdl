@@ -18,6 +18,10 @@ instance Pretty a => Pretty [a]
   where
     pp = hsep . map pp
 
+instance Pretty a => Pretty (Maybe a)
+  where
+    pp = maybe empty pp
+
 --------------------------------------------------------------------------------
 -- ** Pretty printing instances
 
@@ -313,9 +317,9 @@ instance Pretty Constraint where
   pp (CRange r) = pp r
   pp (CIndex i) = pp i
 
-instance Pretty ContextClause where pp = error "missing: ContextClause" -- todo
-
-instance Pretty ContextItem where pp = error "missing: ContextItem" -- todo
+instance Pretty ContextItem where
+  pp (ContextLibrary l) = pp l
+  pp (ContextUse u)     = pp u
 
 instance Pretty DecimalLiteral where pp = error "missing: DecimalLiteral" -- todo
 
@@ -337,9 +341,8 @@ instance Pretty DelayMechanism where
   pp (DMechTransport)  = text "TRANSPORT"
   pp (DMechInertial e) = condL (text "REJECT") e <+> text "INERTIAL"
 
-instance Pretty DesignFile where pp = error "missing: DesignFile" -- todo
-
-instance Pretty DesignUnit where pp = error "missing: DesignUnit" -- todo
+instance Pretty DesignUnit where
+  pp (DesignUnit primary secondary) = pp primary <+> pp secondary
 
 instance Pretty Designator where
   pp (DId i) = pp i
@@ -627,7 +630,8 @@ instance Pretty Letter where pp = error "missing: Letter" -- todo
 
 instance Pretty LetterOrDigit where pp = error "missing: LetterOrDigit" -- todo
 
-instance Pretty LibraryClause where pp = error "missing: LibraryClause" -- todo
+instance Pretty LibraryClause where
+  pp (LibraryClause ns) = text "LIBRARY" <+> pp ns <+> semi
 
 instance Pretty LibraryUnit where pp = error "missing: LibraryUnit" -- todo
 
@@ -638,9 +642,8 @@ instance Pretty Literal where
   pp (LitBitString b) = pp b
   pp (LitNull)        = text "NULL"
 
-instance Pretty LogicalName where pp = error "missing: LogicalName" -- todo
-
-instance Pretty LogicalNameList where pp = error "missing: LogicalNameList" -- todo
+instance Pretty LogicalNameList where
+  pp (LogicalNameList ns) = commaSep $ fmap pp ns
 
 instance Pretty LogicalOperator where
   pp (And)  = text "AND"
@@ -793,7 +796,10 @@ instance Pretty Primary where
   pp (PrimAlloc a) = pp a
   pp (PrimExp e)   = parens (pp e)
 
-instance Pretty PrimaryUnit where pp = error "missing: PrimaryUnit" -- todo
+instance Pretty PrimaryUnit where
+  pp (PrimaryEntity e)  = pp e
+  pp (PrimaryConfig c)  = pp c
+  pp (PrimaryPackage p) = pp p
 
 instance Pretty ProcedureCall where
   pp (ProcedureCall n ap) = pp n <+> cond parens ap
@@ -873,7 +879,9 @@ instance Pretty ScalarTypeDefinition where
   pp (ScalarFloat f) = pp f
   pp (ScalarPhys p)  = pp p
 
-instance Pretty SecondaryUnit where pp = error "missing: SecondaryUnit" -- todo
+instance Pretty SecondaryUnit where
+  pp (SecondaryArchitecture a) = pp a
+  pp (SecondaryPackage p)      = pp p
 
 instance Pretty SecondaryUnitDeclaration where
   pp (SecondaryUnitDeclaration i p) = pp i <+> equals <+> pp p

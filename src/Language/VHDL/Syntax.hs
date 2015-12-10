@@ -2584,12 +2584,152 @@ data GenerationScheme =
   deriving (Eq, Show)
 
 type Label = Identifier
+--------------------------------------------------------------------------------
+--
+--                                  -- 10 --
+--
+--                            Scope and visibility
+--
+--------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
--- ?
+-- ** 10.1 Declarative region
 
-data UseClause        = UseClause [SelectedName]
+--------------------------------------------------------------------------------
+-- ** 10.2 Scope of declarations
+
+--------------------------------------------------------------------------------
+-- ** 10.3 Visibility
+
+--------------------------------------------------------------------------------
+-- ** 10.4 Use clauses
+
+{-
+    use_clause ::=
+      USE selected_name { , selected_name } ;
+-}
+
+data UseClause = UseClause [SelectedName]
   deriving (Eq, Show)
+
+--------------------------------------------------------------------------------
+-- ** 10.5 The context of overload resolution
+
+--------------------------------------------------------------------------------
+--
+--                                  -- 11 --
+--
+--                        Design units and their analysis
+--
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+-- ** 11.1 Design units
+
+{-
+    design_file ::= design_unit { design_unit }
+
+    design_unit ::= context_clause library_unit
+
+    library_unit ::=
+        primary_unit
+      | secondary_unit
+
+    primary_unit ::=
+        entity_declaration
+      | configuration_declaration
+      | package_declaration
+
+    secondary_unit ::=
+        architecture_body
+      | package_body
+-}
+
+
+type DesignFile = [DesignUnit]
+
+data DesignUnit = DesignUnit {
+    design_primary_unit   :: PrimaryUnit
+  , design_secondary_unit :: SecondaryUnit
+  }
+  deriving (Eq, Show)
+
+data PrimaryUnit =
+    PrimaryEntity  EntityDeclaration
+  | PrimaryConfig  ConfigurationDeclaration
+  | PrimaryPackage PackageDeclaration
+  deriving (Eq, Show)
+
+data SecondaryUnit =
+    SecondaryArchitecture ArchitectureBody
+  | SecondaryPackage      PackageBody
+  deriving (Eq, Show)
+
+--------------------------------------------------------------------------------
+-- ** 11.2 Design libraries
+
+{-
+    library_clause ::= LIBRARY logical_name_list ;
+
+    logical_name_list ::= logical_name { , logical_name }
+
+    logical_name ::= identifier
+-}
+
+data LibraryClause = LibraryClause LogicalNameList
+  deriving (Eq, Show)
+
+data LogicalNameList = LogicalNameList [LogicalName]
+  deriving (Eq, Show)
+
+type LogicalName = Identifier
+
+--------------------------------------------------------------------------------
+-- ** 11.3 Context clauses
+
+{-
+    context_clause ::= { context_item }
+
+    context_item ::=
+        library_clause
+      | use_clause
+-}
+
+type ContextClause = Maybe (ContextItem)
+
+data ContextItem =
+    ContextLibrary LibraryClause
+  | ContextUse     UseClause
+  deriving (Eq, Show)
+
+--------------------------------------------------------------------------------
+-- ** 11.3 Order of analysis
+
+--------------------------------------------------------------------------------
+--
+--                                  -- 12 --
+--
+--                           Elaboration and execution
+--
+--------------------------------------------------------------------------------
+
+-- ...
+
+--------------------------------------------------------------------------------
+--
+--                                  -- 13 --
+--
+--                              Lexical elements
+--
+--------------------------------------------------------------------------------
+
+-- ...
+
+--------------------------------------------------------------------------------
+--
+--                                  - ToDo -
+--
+--------------------------------------------------------------------------------
 
 data Identifier       = Ident String
   deriving (Eq, Show)
@@ -2600,14 +2740,10 @@ data CharacterLiteral = CLit Char
 data StringLiteral    = SLit String
   deriving (Eq, Show)
 
---------------------------------------------------------------------------------
---
---                                  - ToDo -
---
---------------------------------------------------------------------------------
-
 data AbstractLiteral  = AbstractLiteral
   deriving (Eq, Show)
+
+--------------------------------------------------------------------------------
 
 data Base = Base
   deriving (Eq, Show)
@@ -2639,19 +2775,7 @@ data BitStringLiteral = BitStringLiteral
 data BitValue = BitValue
   deriving (Eq, Show)
 
-data ContextClause = ContextClause
-  deriving (Eq, Show)
-
-data ContextItem = ContextItem
-  deriving (Eq, Show)
-
 data DecimalLiteral = DecimalLiteral
-  deriving (Eq, Show)
-
-data DesignFile = DesignFile
-  deriving (Eq, Show)
-
-data DesignUnit = DesignUnit
   deriving (Eq, Show)
 
 data Exponent = Exponent
@@ -2672,22 +2796,7 @@ data Letter = Letter
 data LetterOrDigit = LetterOrDigit
   deriving (Eq, Show)
 
-data LibraryClause = LibraryClause
-  deriving (Eq, Show)
-
 data LibraryUnit = LibraryUnit
-  deriving (Eq, Show)
-
-data LogicalName = LogicalName
-  deriving (Eq, Show)
-
-data LogicalNameList = LogicalNameList
-  deriving (Eq, Show)
-
-data PrimaryUnit = PrimaryUnit
-  deriving (Eq, Show)
-
-data SecondaryUnit = SecondaryUnit
   deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
