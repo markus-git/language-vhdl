@@ -2654,6 +2654,11 @@ data DesignUnit = DesignUnit {
   }
   deriving (Eq, Show)
 
+data LibraryUnit =
+    LibraryPrimary   PrimaryUnit
+  | LibrarySecondary SecondaryUnit
+  deriving (Eq, Show)
+
 data PrimaryUnit =
     PrimaryEntity  EntityDeclaration
   | PrimaryConfig  ConfigurationDeclaration
@@ -2794,9 +2799,6 @@ data Letter = Letter
   deriving (Eq, Show)
 
 data LetterOrDigit = LetterOrDigit
-  deriving (Eq, Show)
-
-data LibraryUnit = LibraryUnit
   deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
