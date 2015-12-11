@@ -2648,10 +2648,12 @@ data UseClause = UseClause [SelectedName]
 
 type DesignFile = [DesignUnit]
 
-data DesignUnit = DesignUnit {
-    design_primary_unit   :: PrimaryUnit
-  , design_secondary_unit :: SecondaryUnit
-  }
+data DesignUnit = DesignUnit ContextClause LibraryUnit
+  deriving (Eq, Show)
+
+data LibraryUnit =
+    LibraryPrimary   PrimaryUnit
+  | LibrarySecondary SecondaryUnit
   deriving (Eq, Show)
 
 data PrimaryUnit =
@@ -2794,9 +2796,6 @@ data Letter = Letter
   deriving (Eq, Show)
 
 data LetterOrDigit = LetterOrDigit
-  deriving (Eq, Show)
-
-data LibraryUnit = LibraryUnit
   deriving (Eq, Show)
 
 --------------------------------------------------------------------------------

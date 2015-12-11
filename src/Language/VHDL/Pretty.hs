@@ -342,7 +342,7 @@ instance Pretty DelayMechanism where
   pp (DMechInertial e) = condL (text "REJECT") e <+> text "INERTIAL"
 
 instance Pretty DesignUnit where
-  pp (DesignUnit primary secondary) = pp primary <+> pp secondary
+  pp (DesignUnit ctxt lib) = pp ctxt <+> pp lib
 
 instance Pretty Designator where
   pp (DId i) = pp i
@@ -633,7 +633,9 @@ instance Pretty LetterOrDigit where pp = error "missing: LetterOrDigit" -- todo
 instance Pretty LibraryClause where
   pp (LibraryClause ns) = text "LIBRARY" <+> pp ns <+> semi
 
-instance Pretty LibraryUnit where pp = error "missing: LibraryUnit" -- todo
+instance Pretty LibraryUnit where
+  pp (LibraryPrimary p)   = pp p
+  pp (LibrarySecondary s) = pp s
 
 instance Pretty Literal where
   pp (LitNum n)       = pp n
