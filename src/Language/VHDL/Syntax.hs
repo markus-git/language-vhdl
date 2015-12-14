@@ -2645,8 +2645,8 @@ data UseClause = UseClause [SelectedName]
       | package_body
 -}
 
-
-type DesignFile = [DesignUnit]
+data DesignFile = DesignFile [DesignUnit]
+  deriving (Eq, Show)
 
 data DesignUnit = DesignUnit ContextClause LibraryUnit
   deriving (Eq, Show)
@@ -2697,7 +2697,8 @@ type LogicalName = Identifier
       | use_clause
 -}
 
-type ContextClause = [ContextItem]
+data ContextClause = ContextClause [ContextItem]
+  deriving (Eq, Show)
 
 data ContextItem =
     ContextLibrary LibraryClause

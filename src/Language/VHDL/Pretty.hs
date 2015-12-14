@@ -317,6 +317,9 @@ instance Pretty Constraint where
   pp (CRange r) = pp r
   pp (CIndex i) = pp i
 
+instance Pretty ContextClause where
+  pp (ContextClause items) = vcat $ fmap pp items
+
 instance Pretty ContextItem where
   pp (ContextLibrary l) = pp l
   pp (ContextUse u)     = pp u
@@ -341,8 +344,11 @@ instance Pretty DelayMechanism where
   pp (DMechTransport)  = text "TRANSPORT"
   pp (DMechInertial e) = condL (text "REJECT") e <+> text "INERTIAL"
 
+instance Pretty DesignFile where
+  pp (DesignFile units) = vcat $ fmap pp units
+
 instance Pretty DesignUnit where
-  pp (DesignUnit ctxt lib) = pp ctxt <+> pp lib
+  pp (DesignUnit ctxt lib) = vcat [pp ctxt, pp lib]
 
 instance Pretty Designator where
   pp (DId i) = pp i
