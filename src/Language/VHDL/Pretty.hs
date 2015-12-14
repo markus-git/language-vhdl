@@ -889,7 +889,7 @@ instance Pretty SecondaryUnitDeclaration where
   pp (SecondaryUnitDeclaration i p) = pp i <+> equals <+> pp p
 
 instance Pretty SelectedName where
-  pp (SelectedName p s) = pp p <+> char '.' <+> pp s
+  pp (SelectedName p s) = pp p <> char '.' <> pp s
 
 instance Pretty SelectedSignalAssignment where
   pp (SelectedSignalAssignment e t o w) =
