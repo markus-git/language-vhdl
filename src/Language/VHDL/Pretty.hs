@@ -613,18 +613,18 @@ instance Pretty Integer where pp = integer
 
 instance Pretty InterfaceDeclaration where
   pp (InterfaceConstantDeclaration is s e) =
-    text "CONSTANT" <+> pp is <+> colon <+> text "IN" <+> pp s <+> condL (text ":=") e
+    text "CONSTANT" <+> commaSep (fmap pp is) <+> colon <+> text "IN" <+> pp s <+> condL (text ":=") e
   pp (InterfaceSignalDeclaration is m s b e) =
-    {-text "SIGNAL" <+> -}pp is <+> colon <+> cond id m <+> pp s <+> when b (text "BUS") <+> condL (text ":=") e
+    commaSep (fmap pp is) <+> colon <+> cond id m <+> pp s <+> when b (text "BUS") <+> condL (text ":=") e
   pp (InterfaceVariableDeclaration is m s e) =
-    text "VARIABLE" <+> pp is <+> colon <+> cond id m <+> pp s <+> condL (text ":=") e
+    text "VARIABLE" <+> commaSep (fmap pp is) <+> colon <+> cond id m <+> pp s <+> condL (text ":=") e
   pp (InterfaceFileDeclaration is s) =
-    text "FILE" <+> pp is <+> colon <+> pp s
+    text "FILE" <+> commaSep (fmap pp is) <+> colon <+> pp s
 
 --instance Pretty InterfaceElement where pp = undefined
 
 instance Pretty InterfaceList where
-  pp (InterfaceList es) = foldr ($+$) empty $ punctuate semi $ map pp es
+  pp (InterfaceList es) = vcat $ punctuate semi $ map pp es
 
 instance Pretty IterationScheme where
   pp (IterWhile c) = text "WHILE" <+> pp c
