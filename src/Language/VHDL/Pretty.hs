@@ -25,7 +25,9 @@ instance Pretty a => Pretty (Maybe a)
 --------------------------------------------------------------------------------
 -- ** Pretty printing instances
 
-instance Pretty AbstractLiteral where pp = error "missing: AbstractLiteral" -- todo
+instance Pretty AbstractLiteral where
+  pp (ALitDecimal d) = pp d
+  pp (ALitBased   b) = pp b
 
 instance Pretty AccessTypeDefinition where
   pp (AccessTypeDefinition s) = text "ACCESS" <+> pp s
@@ -119,15 +121,12 @@ instance Pretty AttributeSpecification where
     <+> text "OF" <+> pp s
     <+> text "IS" <+> pp e <+> semi
 
-instance Pretty Base where pp = error "missing: Base" -- todo
-
 instance Pretty BaseSpecifier where pp = error "missing: BaseSpecifier" -- todo
 
 instance Pretty BaseUnitDeclaration where pp = error "missing: BaseUnitDeclaration" -- todo
 
-instance Pretty BasedInteger where pp = error "missing: BasedInteger" -- todo
-
-instance Pretty BasedLiteral where pp = error "missing: BasedLiteral" -- todo
+instance Pretty BasedLiteral where
+  pp (BasedLiteral b i f e) = pp b <+> char '#' <+> pp i <+> condL (char '.') f <+> char '#' <+> cond id e
 
 instance Pretty BasicCharacter where pp = error "missing: BasicCharacter" -- todo
 
@@ -324,7 +323,8 @@ instance Pretty ContextItem where
   pp (ContextLibrary l) = pp l
   pp (ContextUse u)     = pp u
 
-instance Pretty DecimalLiteral where pp = error "missing: DecimalLiteral" -- todo
+instance Pretty DecimalLiteral where
+  pp (DecimalLiteral i f e) = pp i <+> condL (char '.') f <+> cond id e
 
 instance Pretty Declaration where
   pp (DType t)          = pp t
@@ -469,7 +469,9 @@ instance Pretty ExitStatement where
   pp (ExitStatement l b c) =
     label l <+> text "NEXT" <+> cond id b <+> condL (text "WHEN") c <+> semi
 
-instance Pretty Exponent where pp = error "missing: Exponent" -- todo
+instance Pretty Exponent where
+  pp (ExponentPos i) = char 'E' <+> pp i
+  pp (ExponentNeg i) = char 'E' <+> char '-' <+> pp i
 
 instance Pretty Expression where
   pp (EAnd rs)    = textSep "AND"  $ map pp rs

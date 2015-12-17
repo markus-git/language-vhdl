@@ -2726,7 +2726,70 @@ data ContextItem =
 --
 --------------------------------------------------------------------------------
 
--- ...
+--------------------------------------------------------------------------------
+-- ** 13.4
+
+{-
+    abstract_literal ::= decimal_literal | based_literal
+-}
+
+data AbstractLiteral  =
+      ALitDecimal DecimalLiteral
+    | ALitBased   BasedLiteral
+  deriving (Eq, Show)
+
+--------------------------------------------------------------------------------
+-- *** 13.4.1
+--
+-- I use Haskell's Integer to represent integers in VHDL. Its syntax seems to be
+-- slightly different though (the underline part).
+
+{-
+    decimal_literal ::= integer [ . integer ] [ exponent ]
+    
+    integer ::= digit { [ underline ] digit }
+
+    exponent ::= E [ + ] integer | E – integer
+-}
+
+data DecimalLiteral = DecimalLiteral {
+    decimal_integral_part   :: Integer
+  , decimal_fractional_part :: Maybe Integer
+  , decimal_exponent        :: Maybe Exponent
+  }
+  deriving (Eq, Show)
+
+data Exponent =
+    ExponentPos Integer
+  | ExponentNeg Integer
+  deriving (Eq, Show)
+
+--------------------------------------------------------------------------------
+-- *** 13.4.2
+
+{-
+    based_literal ::=
+      base # based_integer [ . based_integer ] # [ exponent ]
+
+    base ::= integer
+
+    based_integer ::=
+      extended_digit { [ underline ] extended_digit }
+
+    extended_digit ::= digit | letter
+-}
+
+data BasedLiteral = BasedLiteral {
+    based_lit_base                  :: Base
+  , based_lit_based_integral_part   :: BasedInteger
+  , based_lit_based_fractional_part :: Maybe BasedInteger
+  , based_lit_exponent              :: Maybe Exponent
+  }
+  deriving (Eq, Show)
+
+type Base = Integer
+
+type BasedInteger = Integer
 
 --------------------------------------------------------------------------------
 --
@@ -2743,24 +2806,12 @@ data CharacterLiteral = CLit Char
 data StringLiteral    = SLit String
   deriving (Eq, Show)
 
-data AbstractLiteral  = AbstractLiteral
-  deriving (Eq, Show)
-
 --------------------------------------------------------------------------------
-
-data Base = Base
-  deriving (Eq, Show)
 
 data BaseSpecifier = BaseSpecifier
   deriving (Eq, Show)
 
 data BaseUnitDeclaration = BaseUnitDeclaration
-  deriving (Eq, Show)
-
-data BasedInteger = BasedInteger
-  deriving (Eq, Show)
-
-data BasedLiteral = BasedLiteral
   deriving (Eq, Show)
 
 data BasicCharacter = BasicCharacter
@@ -2776,12 +2827,6 @@ data BitStringLiteral = BitStringLiteral
   deriving (Eq, Show)
 
 data BitValue = BitValue
-  deriving (Eq, Show)
-
-data DecimalLiteral = DecimalLiteral
-  deriving (Eq, Show)
-
-data Exponent = Exponent
   deriving (Eq, Show)
 
 data ExtendedDigit = ExtendedDigit
