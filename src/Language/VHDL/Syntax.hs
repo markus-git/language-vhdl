@@ -1737,22 +1737,22 @@ data Primary =
     miscellaneous_operator ::= ** | ABS | NOT
 -}
 
-data LogicalOperator  = And | Or | Nand | Nor | Xor | Xnor
+data LogicalOperator       = And | Or | Nand | Nor | Xor | Xnor
   deriving (Eq, Show)
 
-data RelationalOperator = Eq | Neq | Lt | Lte | Gt | Gte
+data RelationalOperator    = Eq | Neq | Lt | Lte | Gt | Gte
   deriving (Eq, Show)
 
-data ShiftOperator    = Sll | Srl | Sla | Sra | Rol | Ror
+data ShiftOperator         = Sll | Srl | Sla | Sra | Rol | Ror
   deriving (Eq, Show)
 
-data AddingOperator   = Plus | Minus | Concat
+data AddingOperator        = Plus | Minus | Concat
   deriving (Eq, Show)
 
-data Sign             = Identity | Negation
+data Sign                  = Identity | Negation
   deriving (Eq, Show)
 
-data MultiplyingOperator = Times | Div | Mod | Rem
+data MultiplyingOperator   = Times | Div | Mod | Rem
   deriving (Eq, Show)
 
 data MiscellaneousOperator = Exp | Abs | Not

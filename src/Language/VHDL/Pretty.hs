@@ -666,8 +666,8 @@ instance Pretty LogicalOperator where
 instance Pretty LoopStatement where
   pp (LoopStatement l i ss) =
     labels l $ vcat
-      [ cond id i <+> text "LOOP"
-      , indent $ pp ss
+      [ (cond id i <+> text "LOOP")
+        `hangs` vpp ss
       , text "END LOOP" <+> cond id l <+> semi
       ]
 
