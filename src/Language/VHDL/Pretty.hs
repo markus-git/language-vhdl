@@ -467,7 +467,7 @@ instance Pretty EnumerationTypeDefinition where
 
 instance Pretty ExitStatement where
   pp (ExitStatement l b c) =
-    label l <+> text "NEXT" <+> cond id b <+> condL (text "WHEN") c <+> semi
+    label l <+> text "EXIT" <+> cond id b <+> condL (text "WHEN") c <+> semi
 
 instance Pretty Exponent where
   pp (ExponentPos i) = char 'E' <+> pp i
