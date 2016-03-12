@@ -105,7 +105,7 @@ instance Pretty AssociationElement where
   pp (AssociationElement f a) = condR (text "=>") f <+> pp a
 
 instance Pretty AssociationList where
-  pp (AssociationList as) = commaSep $ map pp as
+  pp (AssociationList as) = vcat $ punctuate comma $ map pp as
 
 instance Pretty AttributeDeclaration where
   pp (AttributeDeclaration i t) = text "ATTRIBUTE" <+> pp i <+> colon <+> pp t <+> semi
