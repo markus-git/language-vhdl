@@ -2,7 +2,7 @@
 -- documentation, see http://haskell.org/cabal/users-guide/
 
 name:                language-vhdl
-version:             0.1.2.7
+version:             0.1.2.8
 synopsis:            VHDL AST and pretty printer in Haskell.
 -- description:         
 license:             BSD3

@@ -203,7 +203,8 @@ instance Pretty CaseStatement where
 
 instance Pretty CaseStatementAlternative where
   pp (CaseStatementAlternative c ss) =
-    text "WHEN" <+> pp c <+> text "=>" `hangs` pp ss
+    vcat [ text "WHEN" <+> pp c <+> text "=>"
+         , indent $ vcat $ map pp ss]
 
 instance Pretty CharacterLiteral where
   pp (CLit c) = char c
