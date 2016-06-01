@@ -199,7 +199,7 @@ instance Pretty CaseStatement where
     where
       header = text "CASE" <+> pp e <+> text "IS"
       body   = indent $ vcat $ map pp cs
-      footer = text "END CASE" <+> cond id l
+      footer = text "END CASE" <+> cond id l <+> semi
 
 instance Pretty CaseStatementAlternative where
   pp (CaseStatementAlternative c ss) =
@@ -308,7 +308,7 @@ instance Pretty ConfigurationSpecification where
 
 instance Pretty ConstantDeclaration where
   pp (ConstantDeclaration is s e) =
-    text "CONSTANT" <+> commaSep (fmap pp is) <+> colon <+> pp s <+> condL (text ":=") e
+    text "CONSTANT" <+> commaSep (fmap pp is) <+> colon <+> pp s <+> condL (text ":=") e <+> semi
 
 instance Pretty ConstrainedArrayDefinition where
   pp (ConstrainedArrayDefinition i s) = text "ARRAY" <+> pp i <+> text "OF" <+> pp s
@@ -578,7 +578,7 @@ instance Pretty IfStatement where
       ]
     where
       elseIf' :: [(Condition, SequenceOfStatements)] -> Doc
-      elseIf' = vcat . fmap (\(c, ss) -> (text "ELSEIF" <+> pp c <+> text "THEN") `hangs` (vpp ss))
+      elseIf' = vcat . fmap (\(c, ss) -> (text "ELSIF" <+> pp c <+> text "THEN") `hangs` (vpp ss))
 
       else'   :: Maybe SequenceOfStatements -> Doc
       else' (Nothing) = empty
@@ -961,7 +961,7 @@ instance Pretty SignalDeclaration where
   pp (SignalDeclaration is s k e) =
         text "SIGNAL"
     <+> commaSep (fmap pp is)
-    <+> colon <+> pp s <+> cond id k
+    <+> colon <+> pp s {-<+> cond id k-}
     <+> condL (text ":=") e <+> semi
 
 instance Pretty SignalKind where
