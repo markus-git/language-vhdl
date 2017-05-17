@@ -521,8 +521,19 @@ instance Pretty FormalPart where
 instance Pretty FullTypeDeclaration where
   pp (FullTypeDeclaration i t) = text "TYPE" <+> pp i <+> text "IS" <+> pp t <+> semi
 
+-- printing its arguments like this is a slight hack, as we want different
+-- styles for association lists in, for example, entity port declarations and
+-- for functions. The fix would be to make 'ActualParamaterPart' a full data
+-- type, and not a newtype, but this will have work for now.
 instance Pretty FunctionCall where
-  pp (FunctionCall n p) = pp n <+> cond parens p
+  pp (FunctionCall n Nothing) = pp n <+> text "()"
+  pp (FunctionCall n (Just (AssociationList as)))
+    = pp n <+> parens (hsep $ punctuate comma $ map pp as) 
+--pp (FunctionCall n p) = pp n <+> cond parens p
+{-
+instance Pretty AssociationList where
+  pp (AssociationList as) = vcat $ punctuate comma $ map pp as
+-}
 
 instance Pretty GenerateStatement where
   pp (GenerateStatement l g d s) =
