@@ -898,7 +898,7 @@ instance Pretty RelationalOperator where
 
 instance Pretty ReportStatement where
   pp (ReportStatement l e s) =
-    labels l $ (text "REPORT" <+> pp e `hangs` condL (text "SEVERITY") s)
+    labels l $ (text "REPORT" <+> pp e `hangs` condL (text "SEVERITY") s) <+> semi
 
 instance Pretty ReturnStatement where
   pp (ReturnStatement l e) = label l <+> text "RETURN" <+> condR semi e
