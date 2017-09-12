@@ -757,7 +757,7 @@ data ArrayTypeDefinition =
 
 data UnconstrainedArrayDefinition = UnconstrainedArrayDefinition {
     arru_index_subtype_definition   :: [IndexSubtypeDefinition]
-  , arru_element_subtype_indication :: (SubtypeIndication)
+  , arru_element_subtype_indication :: SubtypeIndication
   }
   deriving (Eq, Show)
 

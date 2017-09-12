@@ -207,7 +207,7 @@ instance Pretty CaseStatementAlternative where
          , indent $ vcat $ map pp ss]
 
 instance Pretty CharacterLiteral where
-  pp (CLit c) = char c
+  pp (CLit c) = quotes (char c)
 
 instance Pretty Choice where
   pp (ChoiceSimple s) = pp s
@@ -521,18 +521,16 @@ instance Pretty FormalPart where
 instance Pretty FullTypeDeclaration where
   pp (FullTypeDeclaration i t) = text "TYPE" <+> pp i <+> text "IS" <+> pp t <+> semi
 
--- printing its arguments like this is a slight hack, as we want different
+-- todo: printing its arguments like this is a slight hack, as we want different
 -- styles for association lists in, for example, entity port declarations and
 -- for functions. The fix would be to make 'ActualParamaterPart' a full data
--- type, and not a newtype, but this will have work for now.
+-- type, and not a short-hand for 'AssociationList'.
 instance Pretty FunctionCall where
   pp (FunctionCall n Nothing) = pp n <+> text "()"
   pp (FunctionCall n (Just (AssociationList as)))
-    = pp n <+> parens (hsep $ punctuate comma $ map pp as) 
---pp (FunctionCall n p) = pp n <+> cond parens p
+    = pp n <+> parens (hsep $ punctuate comma $ map pp as)
 {-
-instance Pretty AssociationList where
-  pp (AssociationList as) = vcat $ punctuate comma $ map pp as
+  pp (FunctionCall n p) = pp n <+> cond parens p
 -}
 
 instance Pretty GenerateStatement where
@@ -752,12 +750,22 @@ instance Pretty PackageBodyDeclarativeItem where
 
 --Instance Pretty PackageBodyDeclarativePart where pp = undefined
 
+-- todo: like functions, this way of printing is a slight hack. To fix,
+-- we have to make 'PackageDeclarativePart' a concrete data type and give
+-- it a pretty printing instance.
 instance Pretty PackageDeclaration where
+  pp (PackageDeclaration i ds) =
+    vcat [ text "PACKAGE" <+> pp i <+> text "IS"
+         , indent $ vcat $ map pp ds
+         , text "END PACKAGE" <+> pp i <+> semi
+         ]
+{-
   pp (PackageDeclaration i d) =
     vcat [ text "PACKAGE" <+> pp i <+> text "IS"
          , indent $ pp d
          , text "END PACKAGE" <+> pp i <+> semi
          ]
+-}
 
 instance Pretty PackageDeclarativeItem where
   pp (PHDISubprogDecl s) = pp s
