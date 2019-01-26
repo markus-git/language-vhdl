@@ -4,7 +4,8 @@
 module Language.VHDL.Pretty (Pretty (..)) where
 
 import Language.VHDL.Syntax
-import Text.PrettyPrint     hiding (Mode)
+import Text.PrettyPrint hiding (Mode)
+import Prelude hiding ((<>))
 
 --------------------------------------------------------------------------------
 -- * Pretty printing class
