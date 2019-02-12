@@ -167,8 +167,8 @@ instance Pretty BlockDeclarativeItem where
   pp (BDIAlias a)       = pp a
   pp (BDIComp c)        = pp c
   pp (BDIAttrDecl a)    = pp a
-  pp (BDIAttrSepc a)    = pp a
-  pp (BDIConfigSepc c)  = pp c
+  pp (BDIAttrSpec a)    = pp a
+  pp (BDIConfigSpec c)  = pp c
   pp (BDIDisconSpec d)  = pp d
   pp (BDIUseClause u)   = pp u
   pp (BDIGroupTemp g)   = pp g

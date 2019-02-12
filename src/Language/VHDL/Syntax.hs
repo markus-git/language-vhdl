@@ -192,8 +192,8 @@ data BlockDeclarativeItem =
   | BDIAlias        AliasDeclaration
   | BDIComp         ComponentDeclaration
   | BDIAttrDecl     AttributeDeclaration
-  | BDIAttrSepc     AttributeSpecification
-  | BDIConfigSepc   ConfigurationSpecification
+  | BDIAttrSpec     AttributeSpecification
+  | BDIConfigSpec   ConfigurationSpecification
   | BDIDisconSpec   DisconnectionSpecification
   | BDIUseClause    UseClause
   | BDIGroupTemp    GroupTemplateDeclaration
