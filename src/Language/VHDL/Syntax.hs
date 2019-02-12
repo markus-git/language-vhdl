@@ -2826,13 +2826,16 @@ data BasicGraphicCharacter = BasicGraphicCharacter
 data BasicIdentifier = BasicIdentifier
   deriving (Eq, Show)
 
-data BitStringLiteral = BitStringLiteral
+data BitStringLiteral = BitStringLiteral {
+    bsl_base_specifier :: BaseSpecifier
+  , bsl_bit_value :: BitValue
+  }
   deriving (Eq, Show)
 
-data BitValue = BitValue
+data BitValue = BitValue [ExtendedDigit]
   deriving (Eq, Show)
 
-data ExtendedDigit = ExtendedDigit
+data ExtendedDigit = ExtendedDigit Char
   deriving (Eq, Show)
 
 data ExtendedIdentifier = ExtendedIdentifier
