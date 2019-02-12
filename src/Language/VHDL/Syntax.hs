@@ -2808,7 +2808,10 @@ data StringLiteral    = SLit String
 
 --------------------------------------------------------------------------------
 
-data BaseSpecifier = BaseSpecifier
+data BaseSpecifier =
+    BSOctal
+  | BSBinary
+  | BSHexadecimal
   deriving (Eq, Show)
 
 data BaseUnitDeclaration = BaseUnitDeclaration
