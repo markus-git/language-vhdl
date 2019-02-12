@@ -2573,7 +2573,7 @@ data InstantiatedUnit =
 data GenerateStatement = GenerateStatement {
     gens_label                  :: Label
   , gens_generation_scheme      :: GenerationScheme
-  , gens_block_declarative_item :: Maybe (BlockDeclarativeItem)
+  , gens_block_declarative_item :: Maybe [BlockDeclarativeItem]
   , gens_concurrent_statement   :: [ConcurrentStatement]
   }
   deriving (Eq, Show)

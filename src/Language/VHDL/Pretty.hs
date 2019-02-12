@@ -544,7 +544,7 @@ instance Pretty GenerateStatement where
   pp (GenerateStatement l g d s) =
     pp l <+> colon `hangs` vcat
       [ pp g <+> text "GENERATE"
-      , cond indent d
+      , maybe empty (indent . vcat . fmap pp) d
       , cond (const $ text "BEGIN") d
       , indent $ vcat $ fmap pp s
       , text "END GENERATE" <+> pp l <+> semi
