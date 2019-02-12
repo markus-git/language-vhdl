@@ -122,7 +122,10 @@ instance Pretty AttributeSpecification where
     <+> text "OF" <+> pp s
     <+> text "IS" <+> pp e <+> semi
 
-instance Pretty BaseSpecifier where pp = error "missing: BaseSpecifier" -- todo
+instance Pretty BaseSpecifier where
+  pp BSOctal = char 'o'
+  pp BSBinary = char 'b'
+  pp BSHexadecimal = char 'x'
 
 instance Pretty BaseUnitDeclaration where pp = error "missing: BaseUnitDeclaration" -- todo
 
@@ -139,9 +142,11 @@ instance Pretty BindingIndication where
   pp (BindingIndication e g p) =
     vcat [condR (text "USE") e, cond id g, cond id p]
 
-instance Pretty BitStringLiteral where pp = error "missing: BitStringLiteral" -- todo
+instance Pretty BitStringLiteral where
+  pp (BitStringLiteral bs bv) = pp bs <> doubleQuotes (pp bv)
 
-instance Pretty BitValue where pp = error "missing: BitValue" -- todo
+instance Pretty BitValue where
+  pp (BitValue eds) = pp eds
 
 instance Pretty BlockConfiguration where
   pp (BlockConfiguration s u c) =
@@ -483,7 +488,8 @@ instance Pretty Expression where
   pp (ENor r rs)  = pp r <+> condL (text "NOR")  rs
   pp (EXnor rs)   = textSep "XNOR" $ map pp rs
 
-instance Pretty ExtendedDigit where pp = error "missing: ExtendedDigit" -- todo
+instance Pretty ExtendedDigit where
+  pp (ExtendedDigit ed) = char ed
 
 instance Pretty ExtendedIdentifier where pp = error "missing: ExtendedIdentifier" -- todo
 
