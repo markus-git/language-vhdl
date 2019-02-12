@@ -146,7 +146,7 @@ instance Pretty BitStringLiteral where
   pp (BitStringLiteral bs bv) = pp bs <> doubleQuotes (pp bv)
 
 instance Pretty BitValue where
-  pp (BitValue eds) = pp eds
+  pp (BitValue eds) = text . fmap (\(ExtendedDigit c) -> c) $ eds
 
 instance Pretty BlockConfiguration where
   pp (BlockConfiguration s u c) =
