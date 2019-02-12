@@ -551,8 +551,8 @@ instance Pretty GenerateStatement where
       ]
 
 instance Pretty GenerationScheme where
-  pp (GSFor p) = pp p
-  pp (GSIf c)  = pp c
+  pp (GSFor p) = text "FOR" <+> pp p
+  pp (GSIf c)  = text "IF" <+> pp c
 
 instance Pretty GenericClause where
   pp (GenericClause ls) = text "GENERIC" <+> parens (pp ls) <+> semi
