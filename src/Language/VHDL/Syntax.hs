@@ -2792,6 +2792,29 @@ type Base = Integer
 type BasedInteger = Integer
 
 --------------------------------------------------------------------------------
+-- *** 13.7 Bit string literals
+
+{-
+    bit_string_literal ::= base_specifier "[ bit_value ]"
+
+    bit_value ::= extended_digit { [ underline ] extended_digit }
+
+    base_specifier ::= B | O | X
+-}
+
+data BitStringLiteral = BitStringLiteral {
+    bsl_base_specifier :: BaseSpecifier
+  , bsl_bit_value :: BitValue
+  }
+  deriving (Eq, Show)
+
+data BitValue = BitValue [ExtendedDigit]
+  deriving (Eq, Show)
+
+data ExtendedDigit = ExtendedDigit Char
+  deriving (Eq, Show)
+
+--------------------------------------------------------------------------------
 --
 --                                  - ToDo -
 --
@@ -2824,18 +2847,6 @@ data BasicGraphicCharacter = BasicGraphicCharacter
   deriving (Eq, Show)
 
 data BasicIdentifier = BasicIdentifier
-  deriving (Eq, Show)
-
-data BitStringLiteral = BitStringLiteral {
-    bsl_base_specifier :: BaseSpecifier
-  , bsl_bit_value :: BitValue
-  }
-  deriving (Eq, Show)
-
-data BitValue = BitValue [ExtendedDigit]
-  deriving (Eq, Show)
-
-data ExtendedDigit = ExtendedDigit Char
   deriving (Eq, Show)
 
 data ExtendedIdentifier = ExtendedIdentifier
