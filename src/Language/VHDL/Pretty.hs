@@ -1060,6 +1060,9 @@ instance Pretty SubprogramSpecification where
         Just True  -> text "PURE"
         Just False -> text "IMPURE"
 
+instance Pretty SubprogramDeclaration where
+  pp (SubprogramDeclaration s) = pp s <+> semi
+
 --instance Pretty SubprogramStatementPart where pp = undefined
 
 instance Pretty SubtypeDeclaration where

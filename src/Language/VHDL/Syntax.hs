@@ -333,7 +333,8 @@ data ComponentConfiguration = ComponentConfiguration {
     operator_symbol ::= string_literal
 -}
 
-type SubprogramDeclaration   = SubprogramSpecification
+newtype SubprogramDeclaration = SubprogramDeclaration SubprogramSpecification
+  deriving (Eq, Show)
 
 data SubprogramSpecification =
     SubprogramProcedure {
