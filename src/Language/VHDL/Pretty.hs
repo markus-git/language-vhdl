@@ -146,7 +146,7 @@ instance Pretty BitStringLiteral where
   pp (BitStringLiteral bs bv) = pp bs <> doubleQuotes (pp bv)
 
 instance Pretty BitValue where
-  pp (BitValue eds) = text . fmap (\(ExtendedDigit c) -> c) $ eds
+  pp (BitValue eds) = text eds
 
 instance Pretty BlockConfiguration where
   pp (BlockConfiguration s u c) =
@@ -487,9 +487,6 @@ instance Pretty Expression where
   pp (ENand r rs) = pp r <+> condL (text "NAND") rs
   pp (ENor r rs)  = pp r <+> condL (text "NOR")  rs
   pp (EXnor rs)   = textSep "XNOR" $ map pp rs
-
-instance Pretty ExtendedDigit where
-  pp (ExtendedDigit ed) = char ed
 
 instance Pretty ExtendedIdentifier where pp = error "missing: ExtendedIdentifier" -- todo
 

@@ -2791,6 +2791,8 @@ type Base = Integer
 
 type BasedInteger = Integer
 
+type ExtendedDigit = Char
+
 --------------------------------------------------------------------------------
 -- *** 13.7 Bit string literals
 
@@ -2811,7 +2813,10 @@ data BitStringLiteral = BitStringLiteral {
 data BitValue = BitValue [ExtendedDigit]
   deriving (Eq, Show)
 
-data ExtendedDigit = ExtendedDigit Char
+data BaseSpecifier =
+    BSOctal
+  | BSBinary
+  | BSHexadecimal
   deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
@@ -2830,12 +2835,6 @@ data StringLiteral    = SLit String
   deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
-
-data BaseSpecifier =
-    BSOctal
-  | BSBinary
-  | BSHexadecimal
-  deriving (Eq, Show)
 
 data BaseUnitDeclaration = BaseUnitDeclaration
   deriving (Eq, Show)
