@@ -470,7 +470,7 @@ instance Pretty EnumerationLiteral where
   pp (EChar c) = pp c
 
 instance Pretty EnumerationTypeDefinition where
-  pp (EnumerationTypeDefinition es) = commaSep $ fmap pp es
+  pp (EnumerationTypeDefinition es) = parens . commaSep . fmap pp $ es
 
 instance Pretty ExitStatement where
   pp (ExitStatement l b c) =
