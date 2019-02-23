@@ -531,7 +531,7 @@ data PackageDeclarativeItem =
 -- * 2.6 Package bodies
 {-
     package_body ::=
-      PACKAGE  package_simple_name IS
+      PACKAGE BODY package_simple_name IS
         package_body_declarative_part
       END [ PACKAGE BODY ] [ package_simple_name ] ;
 
