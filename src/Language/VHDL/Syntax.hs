@@ -192,8 +192,8 @@ data BlockDeclarativeItem =
   | BDIAlias        AliasDeclaration
   | BDIComp         ComponentDeclaration
   | BDIAttrDecl     AttributeDeclaration
-  | BDIAttrSepc     AttributeSpecification
-  | BDIConfigSepc   ConfigurationSpecification
+  | BDIAttrSpec     AttributeSpecification
+  | BDIConfigSpec   ConfigurationSpecification
   | BDIDisconSpec   DisconnectionSpecification
   | BDIUseClause    UseClause
   | BDIGroupTemp    GroupTemplateDeclaration
@@ -333,7 +333,8 @@ data ComponentConfiguration = ComponentConfiguration {
     operator_symbol ::= string_literal
 -}
 
-type SubprogramDeclaration   = SubprogramSpecification
+newtype SubprogramDeclaration = SubprogramDeclaration SubprogramSpecification
+  deriving (Eq, Show)
 
 data SubprogramSpecification =
     SubprogramProcedure {
@@ -530,7 +531,7 @@ data PackageDeclarativeItem =
 -- * 2.6 Package bodies
 {-
     package_body ::=
-      PACKAGE  package_simple_name IS
+      PACKAGE BODY package_simple_name IS
         package_body_declarative_part
       END [ PACKAGE BODY ] [ package_simple_name ] ;
 
@@ -2573,7 +2574,7 @@ data InstantiatedUnit =
 data GenerateStatement = GenerateStatement {
     gens_label                  :: Label
   , gens_generation_scheme      :: GenerationScheme
-  , gens_block_declarative_item :: Maybe (BlockDeclarativeItem)
+  , gens_block_declarative_item :: Maybe [BlockDeclarativeItem]
   , gens_concurrent_statement   :: [ConcurrentStatement]
   }
   deriving (Eq, Show)
@@ -2791,6 +2792,34 @@ type Base = Integer
 
 type BasedInteger = Integer
 
+type ExtendedDigit = Char
+
+--------------------------------------------------------------------------------
+-- *** 13.7 Bit string literals
+
+{-
+    bit_string_literal ::= base_specifier "[ bit_value ]"
+
+    bit_value ::= extended_digit { [ underline ] extended_digit }
+
+    base_specifier ::= B | O | X
+-}
+
+data BitStringLiteral = BitStringLiteral {
+    bsl_base_specifier :: BaseSpecifier
+  , bsl_bit_value :: BitValue
+  }
+  deriving (Eq, Show)
+
+data BitValue = BitValue [ExtendedDigit]
+  deriving (Eq, Show)
+
+data BaseSpecifier =
+    BSOctal
+  | BSBinary
+  | BSHexadecimal
+  deriving (Eq, Show)
+
 --------------------------------------------------------------------------------
 --
 --                                  - ToDo -
@@ -2808,9 +2837,6 @@ data StringLiteral    = SLit String
 
 --------------------------------------------------------------------------------
 
-data BaseSpecifier = BaseSpecifier
-  deriving (Eq, Show)
-
 data BaseUnitDeclaration = BaseUnitDeclaration
   deriving (Eq, Show)
 
@@ -2821,15 +2847,6 @@ data BasicGraphicCharacter = BasicGraphicCharacter
   deriving (Eq, Show)
 
 data BasicIdentifier = BasicIdentifier
-  deriving (Eq, Show)
-
-data BitStringLiteral = BitStringLiteral
-  deriving (Eq, Show)
-
-data BitValue = BitValue
-  deriving (Eq, Show)
-
-data ExtendedDigit = ExtendedDigit
   deriving (Eq, Show)
 
 data ExtendedIdentifier = ExtendedIdentifier

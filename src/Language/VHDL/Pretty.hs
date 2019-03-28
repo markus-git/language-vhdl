@@ -122,7 +122,10 @@ instance Pretty AttributeSpecification where
     <+> text "OF" <+> pp s
     <+> text "IS" <+> pp e <+> semi
 
-instance Pretty BaseSpecifier where pp = error "missing: BaseSpecifier" -- todo
+instance Pretty BaseSpecifier where
+  pp BSOctal = char 'o'
+  pp BSBinary = char 'b'
+  pp BSHexadecimal = char 'x'
 
 instance Pretty BaseUnitDeclaration where pp = error "missing: BaseUnitDeclaration" -- todo
 
@@ -139,9 +142,11 @@ instance Pretty BindingIndication where
   pp (BindingIndication e g p) =
     vcat [condR (text "USE") e, cond id g, cond id p]
 
-instance Pretty BitStringLiteral where pp = error "missing: BitStringLiteral" -- todo
+instance Pretty BitStringLiteral where
+  pp (BitStringLiteral bs bv) = pp bs <> doubleQuotes (pp bv)
 
-instance Pretty BitValue where pp = error "missing: BitValue" -- todo
+instance Pretty BitValue where
+  pp (BitValue eds) = text eds
 
 instance Pretty BlockConfiguration where
   pp (BlockConfiguration s u c) =
@@ -162,8 +167,8 @@ instance Pretty BlockDeclarativeItem where
   pp (BDIAlias a)       = pp a
   pp (BDIComp c)        = pp c
   pp (BDIAttrDecl a)    = pp a
-  pp (BDIAttrSepc a)    = pp a
-  pp (BDIConfigSepc c)  = pp c
+  pp (BDIAttrSpec a)    = pp a
+  pp (BDIConfigSpec c)  = pp c
   pp (BDIDisconSpec d)  = pp d
   pp (BDIUseClause u)   = pp u
   pp (BDIGroupTemp g)   = pp g
@@ -465,7 +470,7 @@ instance Pretty EnumerationLiteral where
   pp (EChar c) = pp c
 
 instance Pretty EnumerationTypeDefinition where
-  pp (EnumerationTypeDefinition es) = commaSep $ fmap pp es
+  pp (EnumerationTypeDefinition es) = parens . commaSep . fmap pp $ es
 
 instance Pretty ExitStatement where
   pp (ExitStatement l b c) =
@@ -482,8 +487,6 @@ instance Pretty Expression where
   pp (ENand r rs) = pp r <+> condL (text "NAND") rs
   pp (ENor r rs)  = pp r <+> condL (text "NOR")  rs
   pp (EXnor rs)   = textSep "XNOR" $ map pp rs
-
-instance Pretty ExtendedDigit where pp = error "missing: ExtendedDigit" -- todo
 
 instance Pretty ExtendedIdentifier where pp = error "missing: ExtendedIdentifier" -- todo
 
@@ -538,15 +541,15 @@ instance Pretty GenerateStatement where
   pp (GenerateStatement l g d s) =
     pp l <+> colon `hangs` vcat
       [ pp g <+> text "GENERATE"
-      , cond indent d
+      , maybe empty (indent . vcat . fmap pp) d
       , cond (const $ text "BEGIN") d
       , indent $ vcat $ fmap pp s
       , text "END GENERATE" <+> pp l <+> semi
       ]
 
 instance Pretty GenerationScheme where
-  pp (GSFor p) = pp p
-  pp (GSIf c)  = pp c
+  pp (GSFor p) = text "FOR" <+> pp p
+  pp (GSIf c)  = text "IF" <+> pp c
 
 instance Pretty GenericClause where
   pp (GenericClause ls) = text "GENERIC" <+> parens (pp ls) <+> semi
@@ -1056,6 +1059,9 @@ instance Pretty SubprogramSpecification where
         Nothing    -> empty
         Just True  -> text "PURE"
         Just False -> text "IMPURE"
+
+instance Pretty SubprogramDeclaration where
+  pp (SubprogramDeclaration s) = pp s <+> semi
 
 --instance Pretty SubprogramStatementPart where pp = undefined
 
